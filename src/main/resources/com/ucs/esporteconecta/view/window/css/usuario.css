@@ -1,0 +1,25 @@
+.tela-fundo {
+    -fx-background-color: #FF7E37;
+    -fx-background-image: url("../img/time.png");
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.quadro-fundo {
+    -fx-background-color: #F8F5F5;
+}
+
+.titulo-principal {
+    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+}
+
+.botao-form {
+    -fx-background-color: #FF7E37;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+
