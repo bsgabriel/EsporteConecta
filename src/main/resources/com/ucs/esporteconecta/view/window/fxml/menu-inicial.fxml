@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.ucs.esporteconecta.view.window.MenuInicialController"
+           stylesheets="@../css/menu-inicial.css"
+           id="root">
+
+    <VBox id="pnlLogin">
+        <Label fx:id="lblTitulo" text="Reserve um espaço para praticar seu esporte favorito"/>
+        <HBox id="pnlOpcaoLogin">
+            <ToggleButton fx:id="tglEntrar" text="Entrar" HBox.hgrow="ALWAYS" selected="true"/>
+            <ToggleButton fx:id="tglCadastrar" text="Cadastre-se" HBox.hgrow="ALWAYS"/>
+        </HBox>
+        <VBox fx:id="pnlCadastro" visible="false" managed="false">
+            <RadioButton fx:id="rdLocatario" text="Desejo alugar um espaço" selected="true"/>
+            <RadioButton fx:id="rdLocador" text="Desejo disponibilizar um espaço"/>
+            <TextField fx:id="inputRazaoSocial" promptText="Razão social" styleClass="input" visible="false" managed="false"/>
+            <TextField fx:id="inputNome" promptText="Nome" styleClass="input"/>
+            <TextField fx:id="inputDocumento" promptText="Documento" styleClass="input"/>
+        </VBox>
+        <TextField fx:id="inputLogin" promptText="Login" styleClass="input"/>
+        <PasswordField fx:id="inputSenha" promptText="Senha" styleClass="input"/>
+        <Button id="btnLogin" text="Entrar" onAction="#confirmar"/>
+    </VBox>
+
+</StackPane>

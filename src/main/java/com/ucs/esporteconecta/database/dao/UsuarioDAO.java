@@ -2,12 +2,13 @@ package com.ucs.esporteconecta.database.dao;
 
 import com.ucs.esporteconecta.database.DataBaseManager;
 import com.ucs.esporteconecta.model.Usuario;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class UsuarioDAO {
     private DataBaseManager dataBaseManager;
@@ -18,6 +19,7 @@ public class UsuarioDAO {
         }
         return dataBaseManager;
     }
+
 
     public List<Usuario> findAll() {
         List<Usuario> lst = new ArrayList<>();
@@ -59,4 +61,20 @@ public class UsuarioDAO {
                 session.close();
         }
     }
+
+    public Usuario buscar(String login, String senha) {
+        TypedQuery<Usuario> qry = getDataBaseManager().getEntityManager().createQuery(" FROM Usuario u WHERE u.login = :login and u.senha = :senha", Usuario.class);
+        qry.setParameter("login", login);
+        qry.setParameter("senha", senha);
+        try {
+            return qry.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public List<Usuario> buscar() {
+        return getDataBaseManager().getEntityManager().createQuery(" from Usuario", Usuario.class).getResultList();
+    }
+
 }

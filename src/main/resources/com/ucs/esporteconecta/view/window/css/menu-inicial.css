@@ -1,0 +1,100 @@
+#root {
+    -fx-min-width: 1920px;
+    -fx-min-height: 1080px;
+    -fx-background-image: url("../../../images/time.jpeg");
+    -fx-background-repeat: stretch;
+    -fx-background-size: cover;
+    -fx-aligment: center;
+}
+
+#pnlLogin {
+    -fx-max-width: 640px;
+    -fx-max-height: 840px;
+    -fx-background-color: white;
+    -fx-opacity: 0.9;
+    -fx-border-radius: 25px;
+    -fx-background-radius: 25px;
+    -fx-padding: 40px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 4, 0, 0, 4);
+    -fx-spacing: 20px;
+}
+
+#lblTitulo {
+    -fx-font-size: 50px;
+    -fx-font-weight: bold;
+    -fx-font-color: #222222;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+#pnlOpcaoLogin ToggleButton {
+    -fx-pref-height: 60px;
+    -fx-max-width: infinity;
+    -fx-background-color: white;
+    -fx-border-color: rgba(0, 0, 0, 0.5);
+    -fx-border-width: 1px;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+    -fx-text-fill: rgba(0, 0, 0, 0.5);
+    -fx-background-insets: 1px;
+}
+
+#pnlOpcaoLogin ToggleButton:hover {
+    -fx-opacity: 0.7;
+    -fx-cursor: hand;
+}
+
+#pnlOpcaoLogin ToggleButton:selected {
+    -fx-text-fill: rgba(0, 0, 0, 1);
+}
+
+#pnlCadastro {
+    -fx-spacing: 20px;
+}
+
+#pnlCadastro RadioButton {
+    -fx-font-size: 24px;
+}
+
+#tglEntrar {
+    -fx-border-radius: 10px 0px 0px 10px;
+    -fx-background-radius: 10px 0px 0px 10px;
+}
+
+#tglCadastrar {
+    -fx-border-radius: 0px 10px 10px 0px;
+    -fx-background-radius: 0px 10px 10px 0px;
+}
+
+.input {
+    -fx-pref-height: 65px;
+    -fx-font-size: 24px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+#btnLogin {
+    -fx-pref-height: 85px;
+    -fx-background-color: #FF7E37;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-max-width: infinity;
+    -fx-font-size: 24px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(0, 0, 0, 0.5);
+    -fx-background-insets: 1px;
+}
+
+#btnLogin:hover {
+    -fx-opacity: 0.7;
+    -fx-cursor: hand;
+}
+
+#btnLogin:pressed {
+    -fx-opacity: 0.5;
+}
+
+.alerta {
+    -fx-border-color: red;
+}

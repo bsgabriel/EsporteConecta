@@ -2,7 +2,9 @@ package com.ucs.esporteconecta.model;
 
 import jakarta.persistence.*;
 
-@MappedSuperclass
+@Entity
+@Table(name = "usuarios")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Usuario {
     @Id
     @Column(name = "id")

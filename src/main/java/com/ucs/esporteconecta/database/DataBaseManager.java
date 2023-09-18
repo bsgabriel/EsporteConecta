@@ -1,17 +1,24 @@
 package com.ucs.esporteconecta.database;
 
 import com.ucs.esporteconecta.model.*;
+import jakarta.persistence.EntityManager;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.io.ObjectInputFilter;
 
 public class DataBaseManager {
     private SessionFactory factory;
     private Configuration config;
 
+    private EntityManager entityManager;
+
     public DataBaseManager() {
 
+    }
+
+    public EntityManager getEntityManager() {
+        if (entityManager == null)
+            entityManager = getFactory().createEntityManager();
+        return entityManager;
     }
 
     private Configuration getConfig() {
