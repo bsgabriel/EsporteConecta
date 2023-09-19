@@ -24,7 +24,6 @@ public class UsuarioDAO {
     public List<Usuario> findAll() {
         List<Usuario> lst = new ArrayList<>();
         Session session = null;
-        Transaction tx = null;
         try {
             session = getDataBaseManager().getFactory().openSession();
             List<Usuario> result = session.createQuery("FROM Usuario", Usuario.class).getResultList();
@@ -33,17 +32,16 @@ public class UsuarioDAO {
                 lst.addAll(result);
             }
         } catch (Exception e) {
-            if (tx != null)
-                tx.rollback();
             System.out.println("Transação falhou : ");
             e.printStackTrace();
         } finally {
-            session.close();
+            if (session != null)
+                session.close();
         }
         return lst;
     }
 
-    public void persist(Object usuario) {
+    public boolean persist(Object usuario) {
         Session session = null;
         Transaction tx = null;
         try {
@@ -56,10 +54,13 @@ public class UsuarioDAO {
                 tx.rollback();
             System.out.println("Transação falhou : ");
             e.printStackTrace();
+            return false;
         } finally {
             if (session != null)
                 session.close();
         }
+
+        return true;
     }
 
     public Usuario buscar(String login, String senha) {

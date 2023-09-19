@@ -5,16 +5,16 @@ import com.ucs.esporteconecta.model.Esportista;
 import com.ucs.esporteconecta.model.Instituicao;
 import com.ucs.esporteconecta.model.Usuario;
 import com.ucs.esporteconecta.util.GlobalData;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.Notifications;
 
-public class MenuInicialController {
+import static com.ucs.esporteconecta.util.DialogHelper.*;
+import static javafx.beans.binding.Bindings.createStringBinding;
 
-    private static final String CSS_CLASS_ALERTA = "alerta";
+public class MenuInicialController {
 
     @FXML
     private Label lblTitulo;
@@ -59,15 +59,30 @@ public class MenuInicialController {
 
     @FXML
     private void initialize() {
-        tglCadastrar.selectedProperty().addListener((observableValue, oldValue, newValue) -> tglEntrar.setSelected(!newValue));
-        tglEntrar.selectedProperty().addListener((observableValue, oldValue, newValue) -> tglCadastrar.setSelected(!newValue));
-        rdLocador.selectedProperty().addListener((observableValue, oldValue, newValue) -> rdLocatario.setSelected(!newValue));
-        rdLocatario.selectedProperty().addListener((observableValue, oldValue, newValue) -> rdLocador.setSelected(!newValue));
+        tglCadastrar.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            tglEntrar.setSelected(!newValue);
+            limparCampos();
+        });
+
+        tglEntrar.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            tglCadastrar.setSelected(!newValue);
+            limparCampos();
+        });
+
+        rdLocador.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            rdLocatario.setSelected(!newValue);
+            limparCampos();
+        });
+
+        rdLocatario.selectedProperty().addListener((observableValue, oldValue, newValue) -> {
+            rdLocador.setSelected(!newValue);
+            limparCampos();
+        });
 
         pnlCadastro.visibleProperty().bind(tglCadastrar.selectedProperty());
         pnlCadastro.managedProperty().bind(tglCadastrar.selectedProperty());
 
-        lblTitulo.textProperty().bind(Bindings.createStringBinding(() -> {
+        lblTitulo.textProperty().bind(createStringBinding(() -> {
             if (tglCadastrar.isSelected())
                 return "Informe seus dados";
             return "Reserve um espaço para praticar seu esporte favorito";
@@ -76,38 +91,96 @@ public class MenuInicialController {
         inputRazaoSocial.visibleProperty().bind(rdLocador.selectedProperty());
         inputRazaoSocial.managedProperty().bind(rdLocador.selectedProperty());
 
-        inputNome.promptTextProperty().bind(Bindings.createStringBinding(() -> {
+        inputNome.promptTextProperty().bind(createStringBinding(() -> {
             if (rdLocador.isSelected())
                 return "Nome fantasia";
             return "Nome";
         }, rdLocador.selectedProperty()));
 
-        inputLogin.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue)
-                inputLogin.getStyleClass().remove(CSS_CLASS_ALERTA);
-        });
+        inputDocumento.promptTextProperty().bind(createStringBinding(() -> {
+            if (rdLocador.isSelected())
+                return "CNPJ";
+            return "CPF";
+        }, rdLocador.selectedProperty()));
 
-        inputSenha.focusedProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue)
-                inputSenha.getStyleClass().remove(CSS_CLASS_ALERTA);
-        });
     }
 
     @FXML
     private void confirmar() {
+        if (tglEntrar.isSelected()) {
+            login();
+            return;
+        }
+
+        if (rdLocador.isSelected())
+            cadastrarInstituicao();
+        else
+            cadastrarEsportista();
+
+    }
+
+    private void login() {
         if (!validarCamposLogin())
             return;
 
         Usuario u = getUsuarioDAO().buscar(inputLogin.getText(), inputSenha.getText());
         if (u == null) {
-            Notifications.create().position(Pos.CENTER).title("Erro").text("Usuário ou senha inválidos").showError();
+            showErrorDialog("Usuário ou senha inválidos");
             return;
         }
 
         GlobalData.setUsuarioLogado(u);
-
         notificarUsuarioLogado();
-        // TODO: verificar usuário e chamr próxima tela
+        // TODO: abrir próxima tela
+    }
+
+    private void cadastrarEsportista() {
+        if (!validarCamposEsportista())
+            return;
+
+        Esportista e = new Esportista();
+        e.setLogin(inputLogin.getText());
+        e.setSenha(inputSenha.getText());
+        e.setCpf(inputDocumento.getText());
+        e.setNome(inputNome.getText());
+
+        if (!getUsuarioDAO().persist(e)) {
+            showErrorDialog("Não foi possível realizar cadastro");
+            return;
+        }
+
+        showInformation("Usuário criado com sucesso!");
+        GlobalData.setUsuarioLogado(e);
+        // TODO: abrir próxima tela
+    }
+
+    private void cadastrarInstituicao() {
+        if (!validarCamposInstituicao())
+            return;
+
+        Instituicao i = new Instituicao();
+        i.setLogin(inputLogin.getText());
+        i.setSenha(inputSenha.getText());
+        i.setCnpj(inputDocumento.getText());
+        i.setNomeFantasia(inputNome.getText());
+        i.setRazaoSocial(inputRazaoSocial.getText());
+
+        if (!getUsuarioDAO().persist(i)) {
+            showErrorDialog("Não foi possível realizar cadastro");
+            return;
+        }
+
+        showInformation("Usuário criado com sucesso!");
+        GlobalData.setUsuarioLogado(i);
+        // TODO: abrir próxima tela
+    }
+
+    private void limparCampos() {
+        inputLogin.setText("");
+        inputSenha.setText("");
+        inputRazaoSocial.setText("");
+        inputNome.setText("");
+        inputDocumento.setText("");
     }
 
     /**
@@ -132,14 +205,66 @@ public class MenuInicialController {
 
     private boolean validarCamposLogin() {
         if (inputLogin.getText() == null || inputLogin.getText().isBlank()) {
-            Notifications.create().position(Pos.CENTER).title("Aviso").text("Usuário não informado").showWarning();
-            inputLogin.getStyleClass().add(CSS_CLASS_ALERTA);
+            showWarning("Usuário não informado");
             return false;
         }
 
         if (inputSenha.getText() == null || inputSenha.getText().isBlank()) {
-            Notifications.create().position(Pos.CENTER).title("Aviso").text("Senha não informada").showWarning();
-            inputSenha.getStyleClass().add(CSS_CLASS_ALERTA);
+            showWarning("Senha não informada");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validarCamposInstituicao() {
+        if (inputRazaoSocial.getText() == null || inputRazaoSocial.getText().isBlank()) {
+            showWarning("Razão social não informada");
+            return false;
+        }
+
+
+        if (inputNome.getText() == null || inputNome.getText().isBlank()) {
+            showWarning("Nome fantasia não informado");
+            return false;
+        }
+
+        if (inputDocumento.getText() == null || inputDocumento.getText().isBlank()) {
+            showWarning("CNPJ não informado");
+            return false;
+        }
+
+        if (inputLogin.getText() == null || inputLogin.getText().isBlank()) {
+            showWarning("Login não informado");
+            return false;
+        }
+
+        if (inputSenha.getText() == null || inputSenha.getText().isBlank()) {
+            showWarning("Senha não informada");
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean validarCamposEsportista() {
+        if (inputNome.getText() == null || inputNome.getText().isBlank()) {
+            showWarning("Nome não informado");
+            return false;
+        }
+
+        if (inputDocumento.getText() == null || inputDocumento.getText().isBlank()) {
+            showWarning("CPF não informado");
+            return false;
+        }
+
+        if (inputLogin.getText() == null || inputLogin.getText().isBlank()) {
+            showWarning("Login não informado");
+            return false;
+        }
+
+        if (inputSenha.getText() == null || inputSenha.getText().isBlank()) {
+            showWarning("Senha não informada");
             return false;
         }
 
