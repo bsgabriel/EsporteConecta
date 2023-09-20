@@ -85,6 +85,11 @@ public class TesteCadastro {
         instalacao.setCapacidadeMaxima(10);
         instalacao.setInstituicao(instituicao);
         instalacao.setDescricao("Instalação " + (1 + idx) + " da instituição " + instituicao.getNomeFantasia());
+        instalacao.setNome("Piscina olimpica");
+        instalacao.setValor(450.00);
+        instalacao.setCidade("Caxias do Sul");
+        instalacao.setBairro("Exposicao");
+        instalacao.setEstado("RS");
 
         DiaSemana diaSemana = randomDiaSemana();
         if (diaSemana != null) {
@@ -110,6 +115,5 @@ public class TesteCadastro {
 
         return instalacao;
     }
-
 
 }
