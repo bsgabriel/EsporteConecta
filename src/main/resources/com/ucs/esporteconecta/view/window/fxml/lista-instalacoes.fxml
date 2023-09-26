@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ucs.esporteconecta.view.window.ListaInstalacoesController"
+            stylesheets="@../css/lista-instalacoes.css"
+            fx:id="root" >
+    <children>
+        <GridPane id="pnlInstalacao" hgap="15" vgap="15" >
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1400.0" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="200.0" prefHeight="300.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="500.0" prefHeight="600.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <GridPane id="pnlBusca"  GridPane.halignment="CENTER" hgap="25" vgap="25">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="lblTituloBusca" styleClass="titulo" text="Busca por Instalações"  />
+                        <ChoiceBox fx:id="selectModalidade" prefHeight="60.0" prefWidth="445.0"  styleClass="input" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dpPeriodo" promptText="Período"  styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="inputValor" promptText="Valor" styleClass="input"  GridPane.columnIndex="2" GridPane.rowIndex="1" >
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="inputEstado" promptText="Estado" styleClass="input" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="inputCidade" promptText="Cidade" styleClass="input" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </TextField>
+                        <TextField fx:id="inputBairro" promptText="Bairro" styleClass="input" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets />
+                            </GridPane.margin>
+                        </TextField>
+                        <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#onClickBtnBuscar" prefHeight="61.0" prefWidth="894.0" styleClass="btnPrincipal" text="Buscar" GridPane.columnIndex="2" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                    </children>
+                </GridPane>
+                <GridPane id="pnlLista" GridPane.halignment="CENTER"  GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1400.0" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="400.0" prefHeight="400.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="lblTituloLista" styleClass="titulo" text="Instalações Encontradas"  />
+                        <ListView fx:id="listview" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>
