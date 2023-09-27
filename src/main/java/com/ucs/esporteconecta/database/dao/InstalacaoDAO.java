@@ -19,7 +19,7 @@ public class InstalacaoDAO {
         Session session = null;
         Transaction tx = null;
         try {
-            session =  getDataBaseManager().getFactory().getCurrentSession();
+            session =  getDataBaseManager().getFactory().openSession();
             tx = session.beginTransaction();
             session.persist(instalacao);
             tx.commit();
