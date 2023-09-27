@@ -1,8 +1,9 @@
 package com.ucs.esporteconecta.view.window;
 
 import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
-import com.ucs.esporteconecta.database.dao.UsuarioDAO;
+import com.ucs.esporteconecta.database.dao.ModalidadeDAO;
 import com.ucs.esporteconecta.model.Instalacao;
+import com.ucs.esporteconecta.model.Modalidade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -77,17 +78,32 @@ public class InstalacaoController implements Initializable {
     private ChoiceBox<?> selectDiaInicio;
 
     @FXML
-    private ChoiceBox<?> selectModalidade;
+    private ChoiceBox<Modalidade> selectModalidade;
 
     @FXML
     private Label title;
 
     private InstalacaoDAO instalacaoDAO;
+    private ModalidadeDAO modalidadeDAO;
 
     private InstalacaoDAO getInstalacaoDAO() {
         if (instalacaoDAO == null)
             instalacaoDAO = new InstalacaoDAO();
         return instalacaoDAO;
+    }
+
+    private ModalidadeDAO getModalidadeDAO() {
+        if (modalidadeDAO == null)
+            modalidadeDAO = new ModalidadeDAO();
+        return modalidadeDAO;
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+
+        List<Modalidade> modalidades = getModalidadeDAO().findAll();
+        selectModalidade.getItems().addAll(modalidades);
+
     }
 
     @FXML

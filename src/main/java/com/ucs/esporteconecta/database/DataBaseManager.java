@@ -62,6 +62,7 @@ public class DataBaseManager {
         config.addAnnotatedClass(Instalacao.class);
         config.addAnnotatedClass(Instituicao.class);
         config.addAnnotatedClass(Reserva.class);
+        config.addAnnotatedClass(Modalidade.class);
     }
 
 
