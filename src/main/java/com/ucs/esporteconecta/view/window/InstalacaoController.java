@@ -4,6 +4,8 @@ import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
 import com.ucs.esporteconecta.database.dao.ModalidadeDAO;
 import com.ucs.esporteconecta.model.Instalacao;
 import com.ucs.esporteconecta.model.Modalidade;
+import com.ucs.esporteconecta.model.enums.DiaSemana;
+import com.ucs.esporteconecta.util.MascarasFX;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,10 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -72,10 +76,10 @@ public class InstalacaoController implements Initializable {
     private GridPane pnlMainGrid;
 
     @FXML
-    private ChoiceBox<?> selectDiaFim;
+    private ChoiceBox<DiaSemana> selectDiaFim;
 
     @FXML
-    private ChoiceBox<?> selectDiaInicio;
+    private ChoiceBox<DiaSemana> selectDiaInicio;
 
     @FXML
     private ChoiceBox<Modalidade> selectModalidade;
@@ -103,6 +107,10 @@ public class InstalacaoController implements Initializable {
 
         List<Modalidade> modalidades = getModalidadeDAO().findAll();
         selectModalidade.getItems().addAll(modalidades);
+
+        List<DiaSemana> diasDaSemana = Arrays.asList(DiaSemana.values());
+        selectDiaInicio.getItems().addAll(diasDaSemana);
+        selectDiaFim.getItems().addAll(diasDaSemana);
 
     }
 
@@ -134,6 +142,16 @@ public class InstalacaoController implements Initializable {
 
         showInformation("Instalacao cadastrada com sucesso!");
 
+    }
+
+    @FXML
+    void onKeyPressedHrInicio(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraInicio);
+    }
+
+    @FXML
+    void onKeyPressedHrFim(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraFim);
     }
 
     private boolean validarCampos() {
