@@ -1,0 +1,117 @@
+#pnlInstituicao {
+    -fx-padding: 5px;
+    -fx-spacing: 10px;
+}
+
+#imgWrapper {
+    -fx-background-color: #D9D9D9;
+    -fx-background-radius: 10px;
+    -fx-min-width: 560px;
+    -fx-min-height: 345px;
+}
+
+#informacoes {
+    -fx-spacing: 5px;
+}
+
+#lblEndereco {
+    -fx-text-fill: #000000;
+    -fx-font-size: 26px;
+}
+
+#pnlModalidades {
+    -fx-spacing: 20px;
+}
+
+#pnlModalidades Label {
+    -fx-pref-width: 160px;
+    -fx-alignment: center;
+    -fx-text-fill: #FF7E37;
+    -fx-border-color: #FF7E37;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+#lblDescricao {
+    -fx-text-alignment: justify;
+    -fx-wrap-text: true;
+    -fx-text-fill: #000000;
+    -fx-alignment: top-left;
+    -fx-max-height: infinity;
+    -fx-font-size: 24px;
+}
+
+#pnlAvaliacao {
+    -fx-padding: 0;
+    -fx-alignment: center-left;
+    -fx-spacing: 5px;
+}
+
+#lblNota {
+    -fx-font-size: 24px;
+    -fx-text-fill: #000000;
+}
+
+#rating > .container {
+    -fx-alignment: center-left;
+}
+
+#rating > .container .button {
+    -fx-pref-width: 32px;
+    -fx-pref-height: 32px;
+    -fx-background-size: cover;
+    -fx-padding: 0;
+    -fx-focus-traversable: false;
+}
+
+#linkAvaliacoes {
+    -fx-text-fill: #000000;
+    -fx-underline: true;
+    -fx-font-size: 24px;
+}
+
+#linkAvaliacoes:hover {
+    -fx-text-fill: #555555;
+}
+
+#linkAvaliacoes:pressed {
+    -fx-text-fill: #aaaaaa;
+}
+
+#linkAvaliacoes:focused {
+    -fx-border-color: transparent;
+}
+
+#pnlReserva {
+    -fx-alignment: center-left;
+}
+
+#lblValorDiaria {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#btnReservar {
+    -fx-background-color: #FF7E37;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-pref-width: 100px;
+    -fx-pref-height: 30px;
+}
+
+#btnReservar:hover {
+    -fx-cursor: hand;
+    -fx-opacity: 0.7;
+}
+
+#btnReservar:pressed {
+    -fx-opacity: 0.5;
+}
+
+
+

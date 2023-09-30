@@ -12,6 +12,7 @@ module com.ucs.esporteconecta {
     exports com.ucs.esporteconecta.view.window;
     exports com.ucs.esporteconecta.view;
 
+    opens com.ucs.esporteconecta.view.component to javafx.fxml;
     opens com.ucs.esporteconecta.view.window to javafx.fxml;
     opens com.ucs.esporteconecta.view to javafx.fxml;
     opens com.ucs.esporteconecta to javafx.fxml;

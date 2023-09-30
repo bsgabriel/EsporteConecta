@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.Rating?>
+<fx:root id="pnlInstituicao" stylesheets="@../css/item-reserva-instalacao.css" type="HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+
+    <StackPane id="imgWrapper">
+        <ImageView fx:id="imgViewInstalacao" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true"/>
+    </StackPane>
+    <VBox id="informacoes">
+        <Label fx:id="lblEndereco"/>
+        <HBox id="pnlAvaliacao">
+            <Rating fx:id="rating" partialRating="true" mouseTransparent="true"/>
+            <Label fx:id="lblNota"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Hyperlink fx:id="linkAvaliacoes" text="Ver avaliações"/>
+        </HBox>
+        <HBox fx:id="pnlModalidades"/>
+        <Label fx:id="lblDescricao" wrapText="true" VBox.vgrow="ALWAYS"/>
+        <HBox id="pnlReserva">
+            <Label fx:id="lblValorDiaria"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button id="btnReservar" text="RESERVAR"/>
+        </HBox>
+    </VBox>
+</fx:root>
