@@ -61,14 +61,13 @@ public class MascarasFX {
      * @param textField TextField
      */
     public static void mascaraHora(final TextField textField) {
-        maxField(textField, 8);
+        maxField(textField, 5);
 
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
                 String value = textField.getText();
                 value = value.replaceAll("[^0-9]", "");
-                value = value.replaceFirst("(\\d{2})(\\d)", "$1:$2");
                 value = value.replaceFirst("(\\d{2})(\\d)", "$1:$2");
                 textField.setText(value);
                 positionCaret(textField);
