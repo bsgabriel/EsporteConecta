@@ -2,8 +2,7 @@ package com.ucs.esporteconecta.view.window;
 
 import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
 import com.ucs.esporteconecta.database.dao.ModalidadeDAO;
-import com.ucs.esporteconecta.model.Instalacao;
-import com.ucs.esporteconecta.model.Modalidade;
+import com.ucs.esporteconecta.model.*;
 import com.ucs.esporteconecta.model.enums.DiaSemana;
 import com.ucs.esporteconecta.util.MascarasFX;
 import javafx.event.ActionEvent;
@@ -18,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -49,10 +49,16 @@ public class InstalacaoController implements Initializable {
     private TextField inputEstado;
 
     @FXML
-    private TextField inputHoraFim;
+    private TextField inputHoraFimManha;
 
     @FXML
-    private TextField inputHoraInicio;
+    private TextField inputHoraFimTarde;
+
+    @FXML
+    private TextField inputHoraInicioManha;
+
+    @FXML
+    private TextField inputHoraInicioTarde;
 
     @FXML
     private TextField inputNome;
@@ -131,7 +137,20 @@ public class InstalacaoController implements Initializable {
         instalacao.setValor(Double.parseDouble(inputValor.getText().replaceAll(",", ".")));
         instalacao.setCapacidadeMaxima(Integer.parseInt(inputCapacidadeMax.getText()));
 
+        //Salvar modalidade
+        String[] idModalidade = this.selectModalidade.getValue().toString().split("-");
+        Modalidade modalidade = modalidadeDAO.buscarPorId(Integer.parseInt(idModalidade[0]));
+        instalacao.setModalidade(modalidade);
+
         //Salvar horario de funcionamento
+        Funcionamento func1 = cadastraHorarioFuncionamento(this.inputHoraInicioManha, this.inputHoraFimManha, this.selectDiaInicio);
+        Funcionamento func2 = cadastraHorarioFuncionamento(this.inputHoraInicioTarde, this.inputHoraFimTarde, this.selectDiaFim);
+
+         func1.setInstalacao(instalacao);
+         func2.setInstalacao(instalacao);
+
+         instalacao.getFuncionamentos().add(func1);
+         instalacao.getFuncionamentos().add(func2);
 
         //Salva o id da instituicao
 
@@ -145,13 +164,37 @@ public class InstalacaoController implements Initializable {
     }
 
     @FXML
-    void onKeyPressedHrInicio(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraInicio);
+    void onKeyPressedHrFimManha(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraFimManha);
     }
 
     @FXML
-    void onKeyPressedHrFim(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraFim);
+    void onKeyPressedHrFimTarde(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraFimTarde);
+    }
+
+    @FXML
+    void onKeyPressedHrInicioManha(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraInicioManha);
+    }
+
+    @FXML
+    void onKeyPressedHrInicioTarde(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraInicioTarde);
+    }
+
+    private Funcionamento cadastraHorarioFuncionamento(TextField inptHoraInicio, TextField inptHoraFim, ChoiceBox<DiaSemana> diaSemana) {
+        String[] horaInicio = inptHoraInicio.getText().split(":");
+        String[] horaFim = inptHoraFim.getText().split(":");
+
+        Horario horario = new Horario();
+        horario.setInicio(LocalTime.of(Integer.parseInt(horaInicio[0]), Integer.parseInt(horaInicio[1])));
+        horario.setFim(LocalTime.of(Integer.parseInt(horaFim[0]), Integer.parseInt(horaFim[1])));
+
+        Funcionamento func = new Funcionamento();
+        func.setDiaSemana(diaSemana.getValue());
+        func.setHorario(horario);
+        return func;
     }
 
     private boolean validarCampos() {
@@ -190,6 +233,41 @@ public class InstalacaoController implements Initializable {
             return false;
         }
 
+        if (inputHoraInicioManha.getText() == null || inputHoraInicioManha.getText().isBlank()) {
+            showWarning("Horario de abertura da manhã não informada");
+            return false;
+        }
+
+        if (inputHoraFimManha.getText() == null || inputHoraFimManha.getText().isBlank()) {
+            showWarning("Horario de fechamento da manhã não informada");
+            return false;
+        }
+
+        if (inputHoraInicioTarde.getText() == null || inputHoraInicioTarde.getText().isBlank()) {
+            showWarning("Horario de abertura da tarde não informada");
+            return false;
+        }
+
+        if (inputHoraFimTarde.getText() == null || inputHoraFimTarde.getText().isBlank()) {
+            showWarning("Horario de fechamento da tarde não informada");
+            return false;
+        }
+
+        if (selectModalidade.getValue() == null || selectModalidade.getValue().toString().isBlank()) {
+            showWarning("Modalidade não informada");
+            return false;
+        }
+
+        if (selectDiaInicio.getValue() == null || selectDiaInicio.getValue().toString().isBlank()) {
+            showWarning("Dia de abertura não informada");
+            return false;
+        }
+
+        if (selectDiaFim.getValue() == null || selectDiaFim.getValue().toString().isBlank()) {
+            showWarning("Dia de fechamento não informada");
+            return false;
+        }
+
         //Validacao campos numericos
 
         try {
@@ -205,8 +283,6 @@ public class InstalacaoController implements Initializable {
             showWarning("Digite apenas números para informar a capacidade máxima");
             return false;
         }
-
-        //TODO VALIDAR HORARIOS
 
         return true;
     }

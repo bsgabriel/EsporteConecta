@@ -61,4 +61,21 @@ public class ModalidadeDAO {
         return lst;
     }
 
+    public Modalidade buscarPorId(int id) {
+        Session session = null;
+        Modalidade modalidade = null;
+        try {
+            session =  getDataBaseManager().getFactory().openSession();
+            modalidade = session.get(Modalidade.class, id);
+        } catch (Exception e) {
+            System.out.println("Ocoreu um erro ao obter a modalidade: ");
+            e.printStackTrace();
+        } finally {
+            if (session != null)
+                session.close();
+        }
+
+        return modalidade;
+    }
+
 }

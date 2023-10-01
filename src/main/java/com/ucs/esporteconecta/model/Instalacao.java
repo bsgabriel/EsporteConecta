@@ -33,6 +33,9 @@ public class Instalacao {
     @Column
     private String estado;
 
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Modalidade modalidade;
+
     @OneToMany(mappedBy = "instalacao", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reserva> reservas;
 
@@ -88,6 +91,14 @@ public class Instalacao {
     public String getEstado() { return estado; }
 
     public void setEstado(String estado) { this.estado = estado; }
+
+    public Modalidade getModalidade() {
+        return modalidade;
+    }
+
+    public void setModalidade(Modalidade modalidade) {
+        this.modalidade = modalidade;
+    }
 
     public Instituicao getInstituicao() {
         return instituicao;

@@ -38,6 +38,6 @@ public class Modalidade {
     }
     @Override
     public String toString() {
-        return getNome();
+        return getId() + "-" + getNome();
     }
 }
