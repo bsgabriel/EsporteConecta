@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.Rating?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane id="root" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../css/lista-instalacoes-reservar.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucs.esporteconecta.view.window.ListaInstalacoesReservarController">
+
+    <VBox id="contentWrapper">
+        <HBox id="cabecalho" maxHeight="-Infinity" maxWidth="-Infinity">
+            <FlowPane id="pnlBusca" maxHeight="-Infinity" maxWidth="-Infinity" prefWrapLength="830" styleClass="white-background">
+                <ComboBox fx:id="cbModalidade" promptText="Modalidade" styleClass="input" />
+                <DatePicker fx:id="dpPeriodo" promptText="Período" styleClass="input" />
+                <TextField fx:id="fldEstado" promptText="UF" styleClass="input" />
+                <TextField fx:id="fldCidade" promptText="Cidade" styleClass="input" />
+                <TextField fx:id="fldBairro" promptText="Bairro" styleClass="input" />
+                <TextField fx:id="fldValor" promptText="Valor até" styleClass="input" />
+                <Label id="lblAvaliacoes" text="Avaliações" />
+                <Rating fx:id="rating" />
+                <Button fx:id="btnBuscar" onAction="#buscarInstalacoes">
+                    <graphic>
+                        <FontIcon />
+                    </graphic>
+                </Button>
+            </FlowPane>
+            <VBox id="menu" maxHeight="-Infinity" maxWidth="-Infinity">
+                <Button id="btnConta" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="btn-cabecalho, white-background" text="MINHA CONTA" />
+                <Button id="btnReservas" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="btn-cabecalho, white-background" text="MINHAS RESERVAS" />
+            </VBox>
+        </HBox>
+        <VBox id="pnlInstalacoes" styleClass="white-background">
+            <Label id="lblInstalacoes" text="INSTALAÇÕES ENCONTRADAS" />
+            <ScrollPane fx:id="spInstalacoes" hbarPolicy="NEVER" fitToWidth="true">
+                <VBox fx:id="instalacoesWrapper" />
+            </ScrollPane>
+        </VBox>
+    </VBox>
+
+</StackPane>

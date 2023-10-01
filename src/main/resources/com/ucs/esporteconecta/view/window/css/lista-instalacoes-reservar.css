@@ -1,0 +1,137 @@
+.white-background {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 4, 0, 0, 4);
+}
+
+.input {
+    -fx-font-size: 24px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-pref-height: 30px;
+}
+
+.btn-cabecalho {
+    -fx-pref-width: 390px;
+    -fx-pref-height: 115px;
+    -fx-font-size: 32px;
+    -fx-text-fill: #000000;
+
+}
+
+#root {
+    -fx-background-color: #EFEFEF;
+}
+
+#contentWrapper {
+    -fx-max-width: 1315px;
+    -fx-max-height: 915px;
+    -fx-background-color: #EFEFEF;
+    -fx-spacing: 20px;
+}
+
+#cabecalho {
+    -fx-pref-height: 270px;
+    -fx-spacing: 40px;
+}
+
+#pnlBusca {
+    -fx-hgap: 30px;
+    -fx-vgap: 30px;
+    -fx-padding: 20px;
+    -fx-pref-width: 880px;
+    -fx-pref-height: 270px;
+    -fx-alignment: center-left;
+}
+
+#cbModalidade {
+    -fx-pref-width: 400px;
+}
+
+#dpPeriodo {
+    -fx-pref-width: 400px;
+}
+
+#fldEstado {
+    -fx-pref-width: 140px;
+}
+
+#fldCidade {
+    -fx-pref-width: 340px;
+}
+
+#fldBairro {
+    -fx-pref-width: 290px;
+}
+
+#fldValor {
+    -fx-pref-width: 300px;
+}
+
+#lblAvaliacoes {
+    -fx-font-size: 24px;
+}
+
+#rating > .container {
+    -fx-alignment: center-left;
+}
+
+#rating > .container .button {
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-background-size: cover;
+    -fx-padding: 0;
+    -fx-focus-traversable: false;
+}
+
+#btnBuscar {
+    -fx-background-color: #FF7E37;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-pref-width: 48px;
+    -fx-pref-height: 48px;
+
+}
+
+#btnBuscar:hover {
+    -fx-cursor: hand;
+    -fx-opacity: 0.7;
+}
+
+#btnBuscar:pressed {
+    -fx-opacity: 0.5;
+}
+
+
+#btnBuscar FontIcon {
+    -fx-icon-code: "fas-search";
+    -fx-icon-color: white;
+    -fx-icon-size: 24px;
+}
+
+#menu {
+    -fx-spacing: 40px;
+}
+
+#pnlInstalacoes {
+    -fx-spacing: 20px;
+    -fx-pref-height: 625;
+    -fx-padding: 20px 20px 0 20px;
+    -fx-spacing: 20px;
+}
+
+#lblInstalacoes {
+    -fx-font-size: 32px;
+    -fx-text-fill: #000000;
+}
+
+#spInstalacoes,
+#spInstalacoes .viewport {
+    -fx-background-color: transparent;
+}
+
+#instalacoesWrapper {}
