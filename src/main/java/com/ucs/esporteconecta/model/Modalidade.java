@@ -13,6 +13,9 @@ public class Modalidade {
     @Column
     private String nome;
 
+    @Column
+    private String urlImagem;
+
     public Long getId() {
         return id;
     }
@@ -29,6 +32,10 @@ public class Modalidade {
         this.nome = nome;
     }
 
+    public String getUrlImagem() {return urlImagem;}
+    public void setUrlImagem(String urlImagem) {
+        this.urlImagem = urlImagem;
+    }
     @Override
     public String toString() {
         return getNome();

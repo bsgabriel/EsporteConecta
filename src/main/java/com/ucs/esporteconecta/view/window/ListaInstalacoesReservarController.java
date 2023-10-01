@@ -2,6 +2,7 @@ package com.ucs.esporteconecta.view.window;
 
 import com.ucs.esporteconecta.model.Avaliacao;
 import com.ucs.esporteconecta.model.Instalacao;
+import com.ucs.esporteconecta.model.Modalidade;
 import com.ucs.esporteconecta.view.component.ItemReservaInstalacao;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -57,6 +58,9 @@ public class ListaInstalacoesReservarController {
         instalacao.setValor(100d);
         instalacao.setDescricao("Quadra fechada equipada com redes para volêi e bolas disponíveis para futsal, volêi e handbal. " +
                 "Suporta 500 pessoas sentadas nas arquibancadas.");
+        Modalidade modalidade = new Modalidade();
+        modalidade.setNome("Futsal");
+        modalidade.setUrlImagem("https://github.com/bsgabriel/EsporteConecta/blob/main/src/main/resources/com/ucs/esporteconecta/images/futsal.jpeg?raw=true");
 
         for (int x = 0; x < 6; x++) {
             Avaliacao avaliacao = new Avaliacao();
@@ -64,14 +68,12 @@ public class ListaInstalacoesReservarController {
             instalacao.getAvaliacoes().add(avaliacao);
         }
 
-
         ItemReservaInstalacao content = new ItemReservaInstalacao();
         content.setNome(instalacao.getNome() + " - " + instalacao.getBairro() + ", " + instalacao.getCidade());
         content.setDescricao(instalacao.getDescricao());
         content.setValorDiaria(instalacao.getValor());
-        content.adicionarModalidade("Futsal");
-        content.adicionarModalidade("Vôlei");
-        content.adicionarModalidade("Handbal");
+        content.adicionarModalidade(modalidade.getNome());
+        content.adicionaImagem(modalidade.getUrlImagem());
 
         // TODO gabriel: achar um meio de descobrir quando a barra vertial aparece. Quando ela aparecer, diminuir a largura dela
 

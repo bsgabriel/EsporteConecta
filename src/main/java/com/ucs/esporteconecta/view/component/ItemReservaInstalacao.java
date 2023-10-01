@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import org.controlsfx.control.Rating;
@@ -61,6 +62,10 @@ public class ItemReservaInstalacao extends HBox {
             this.lblValorDiaria.setText("R$ 0,00 / dia");
         else
             this.lblValorDiaria.setText("R$ <vlr> / dia".replace("<vlr>", vlr.toString()));
+    }
+
+    public void adicionaImagem(String urlImg) {
+            imgViewInstalacao.setImage(new Image(urlImg));
     }
 
     public void adicionarModalidade(String modalidade) {

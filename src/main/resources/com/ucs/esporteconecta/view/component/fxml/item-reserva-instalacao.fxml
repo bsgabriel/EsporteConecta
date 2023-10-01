@@ -8,7 +8,7 @@
          xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
 
     <StackPane id="imgWrapper">
-        <ImageView fx:id="imgViewInstalacao" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true"/>
+        <ImageView fx:id="imgViewInstalacao" fitHeight="345.0" fitWidth="560.0" pickOnBounds="true"/>
     </StackPane>
     <VBox id="informacoes">
         <Label fx:id="lblEndereco"/>
