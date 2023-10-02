@@ -1,24 +1,18 @@
 package com.ucs.esporteconecta;
 
-import com.ucs.esporteconecta.view.ViewResourceHelper;
+import com.ucs.esporteconecta.util.FXUtils;
 import com.ucs.esporteconecta.view.window.ListaInstalacoesReservarController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class ListaInstalacoesApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ViewResourceHelper.getWindowFxml(ListaInstalacoesReservarController.class));
-
-        double width = Screen.getPrimary().getVisualBounds().getWidth();
-        double height = Screen.getPrimary().getVisualBounds().getHeight();
-
-        Scene scene = new Scene(fxmlLoader.load(), width, height);
+        Scene scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class);
         stage.setTitle("Instalações Esportivas");
         stage.setMinWidth(1400);
         stage.setMinHeight(935);

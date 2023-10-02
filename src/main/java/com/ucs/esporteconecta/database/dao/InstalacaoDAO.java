@@ -1,8 +1,10 @@
 package com.ucs.esporteconecta.database.dao;
 
 import com.ucs.esporteconecta.database.DataBaseManager;
+import com.ucs.esporteconecta.model.Instalacao;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import java.util.List;
 
 public class InstalacaoDAO {
 
@@ -19,7 +21,7 @@ public class InstalacaoDAO {
         Session session = null;
         Transaction tx = null;
         try {
-            session =  getDataBaseManager().getFactory().openSession();
+            session = getDataBaseManager().getFactory().openSession();
             tx = session.beginTransaction();
             session.persist(instalacao);
             tx.commit();
@@ -35,6 +37,10 @@ public class InstalacaoDAO {
         }
 
         return true;
+    }
+
+    public List<Instalacao> findAll() {
+        return getDataBaseManager().getEntityManager().createQuery("From Instalacao", Instalacao.class).getResultList();
     }
 
 }
