@@ -72,6 +72,8 @@ public class TesteCadastro {
         Instituicao instituicao = new Instituicao();
         instituicao.setLogin("ucs3");
         instituicao.setSenha("ucs@senha");
+        instituicao.setRazaoSocial("Universidade de Caxias do Sul");
+        instituicao.setNomeFantasia("UCS");
 
         for (int i = 0; i < 10; i++) {
             instituicao.getInstalacoes().add(gerarInstalacao(i, instituicao));
@@ -90,6 +92,11 @@ public class TesteCadastro {
         instalacao.setCidade("Caxias do Sul");
         instalacao.setBairro("Exposicao");
         instalacao.setEstado("RS");
+
+        Modalidade modalidade = new Modalidade();
+        modalidade.setNome("tênis");
+        modalidade.setUrlImagem("");
+        instalacao.setModalidade(modalidade);
 
         DiaSemana diaSemana = randomDiaSemana();
         if (diaSemana != null) {
