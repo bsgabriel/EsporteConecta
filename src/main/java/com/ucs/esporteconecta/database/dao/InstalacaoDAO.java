@@ -51,7 +51,7 @@ public class InstalacaoDAO {
         if (filtro.getBairro() != null && !filtro.getBairro().isBlank())
             qry.setParameter("bairro", filtro.getBairro().toLowerCase());
 
-        if (filtro.getCidade() != null && !filtro.getBairro().isBlank())
+        if (filtro.getCidade() != null && !filtro.getCidade().isBlank())
             qry.setParameter("cidade", filtro.getCidade().toLowerCase());
 
         if (filtro.getUF() != null && !filtro.getUF().isBlank())
@@ -69,7 +69,7 @@ public class InstalacaoDAO {
         if (filtro.getBairro() != null && !filtro.getBairro().isBlank())
             sb.append("lower(bairro) = :bairro").append(" and ");
 
-        if (filtro.getCidade() != null && !filtro.getBairro().isBlank())
+        if (filtro.getCidade() != null && !filtro.getCidade().isBlank())
             sb.append("lower(cidade) = :cidade").append(" and ");
 
         if (filtro.getUF() != null && !filtro.getUF().isBlank())
