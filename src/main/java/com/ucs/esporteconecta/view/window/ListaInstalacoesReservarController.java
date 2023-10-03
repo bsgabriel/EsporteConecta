@@ -168,16 +168,16 @@ public class ListaInstalacoesReservarController implements IController {
         if (dpPeriodo.getValue() != null)
             return true;
 
-        if (fldEstado.getText() != null && fldEstado.getText().isBlank())
+        if (fldEstado.getText() != null && !fldEstado.getText().isBlank())
             return true;
 
-        if (fldCidade.getText() != null && fldCidade.getText().isBlank())
+        if (fldCidade.getText() != null && !fldCidade.getText().isBlank())
             return true;
 
-        if (fldBairro.getText() != null && fldBairro.getText().isBlank())
+        if (fldBairro.getText() != null && !fldBairro.getText().isBlank())
             return true;
 
-        if (fldValor.getText() != null && fldValor.getText().isBlank())
+        if (fldValor.getText() != null && !fldValor.getText().isBlank())
             return true;
 
         if (rating.getRating() > 0)
