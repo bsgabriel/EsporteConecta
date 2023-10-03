@@ -3,8 +3,10 @@ package com.ucs.esporteconecta.view.window;
 import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
 import com.ucs.esporteconecta.model.Avaliacao;
 import com.ucs.esporteconecta.model.Instalacao;
+import com.ucs.esporteconecta.model.Modalidade;
 import com.ucs.esporteconecta.util.CustomTask;
 import com.ucs.esporteconecta.util.DialogHelper;
+import com.ucs.esporteconecta.util.filtros.FiltroBuscaInstalacao;
 import com.ucs.esporteconecta.util.interfaces.IController;
 import com.ucs.esporteconecta.view.component.ItemReservaInstalacao;
 import javafx.fxml.FXML;
@@ -21,7 +23,7 @@ import static java.math.RoundingMode.HALF_DOWN;
 public class ListaInstalacoesReservarController implements IController {
 
     @FXML
-    private ComboBox cbModalidade;
+    private ComboBox<Modalidade> cbModalidade;
 
     @FXML
     private DatePicker dpPeriodo;
@@ -65,12 +67,28 @@ public class ListaInstalacoesReservarController implements IController {
     }
 
     @FXML
+    private void limparFiltro() {
+        cbModalidade.getSelectionModel().clearSelection();
+        cbModalidade.setPromptText("Modalidade");
+        dpPeriodo.setValue(null);
+        fldEstado.setText("");
+        fldCidade.setText("");
+        fldBairro.setText("");
+        fldValor.setText("");
+        rating.setRating(0);
+    }
+
+    @FXML
     private void buscarInstalacoes() {
+        final FiltroBuscaInstalacao filtro = gerarFiltro();
         this.instalacoesWrapper.getChildren().clear();
         new CustomTask<List<Instalacao>>() {
             @Override
             protected List<Instalacao> call() {
-                return getInstalacaoDAO().findAll();
+                if (filtro != null)
+                    return getInstalacaoDAO().find(filtro);
+                else
+                    return getInstalacaoDAO().findAll();
             }
 
             @Override
@@ -86,6 +104,26 @@ public class ListaInstalacoesReservarController implements IController {
         }.executar(parent);
     }
 
+    private FiltroBuscaInstalacao gerarFiltro() {
+        if (!verificarCamposFiltro())
+            return null;
+
+        FiltroBuscaInstalacao filtro = new FiltroBuscaInstalacao();
+        filtro.setBairro(fldBairro.getText());
+        filtro.setCidade(fldCidade.getText());
+        filtro.setModalidade(cbModalidade.getSelectionModel().getSelectedItem());
+        filtro.setUF(fldEstado.getText());
+        filtro.setQtdEstrelas(Double.valueOf(rating.getRating()).intValue());
+
+        if (fldValor.getText() == null || fldValor.getText().isBlank())
+            filtro.setValorMaximo(null);
+        else
+            filtro.setValorMaximo(Double.parseDouble(fldValor.getText()));
+
+        return filtro;
+    }
+
+
     private void inserirInstalacao(Instalacao instalacao) {
         ItemReservaInstalacao content = new ItemReservaInstalacao();
         content.setNome(instalacao.getNome() + " - " + instalacao.getBairro() + ", " + instalacao.getCidade());
@@ -99,18 +137,53 @@ public class ListaInstalacoesReservarController implements IController {
     }
 
 
+    /**
+     * Calcula a média de estrelas de uma instalação
+     *
+     * @param avaliacoes lista com avaliações
+     * @return soma das notas divido pelo total de avaliações
+     */
     private double calcularAvaliacao(List<Avaliacao> avaliacoes) {
         if (avaliacoes == null || avaliacoes.isEmpty())
             return 0.0;
 
-        double nota = 0.0;
+        int nota = 0;
 
         for (Avaliacao avalicao : avaliacoes) {
             nota += avalicao.getNota();
         }
 
-        System.out.println("nota total: " + nota);
-        return BigDecimal.valueOf(nota / avaliacoes.size()).setScale(1, HALF_DOWN).doubleValue();
+        return BigDecimal.valueOf(Integer.valueOf(nota).doubleValue() / avaliacoes.size()).setScale(1, HALF_DOWN).doubleValue();
+    }
+
+    /**
+     * Verifica se há pelo menos um filtro
+     *
+     * @return
+     */
+    private boolean verificarCamposFiltro() {
+        if (cbModalidade.getSelectionModel().getSelectedIndex() > 0)
+            return true;
+
+        if (dpPeriodo.getValue() != null)
+            return true;
+
+        if (fldEstado.getText() != null && fldEstado.getText().isBlank())
+            return true;
+
+        if (fldCidade.getText() != null && fldCidade.getText().isBlank())
+            return true;
+
+        if (fldBairro.getText() != null && fldBairro.getText().isBlank())
+            return true;
+
+        if (fldValor.getText() != null && fldValor.getText().isBlank())
+            return true;
+
+        if (rating.getRating() > 0)
+            return true;
+
+        return false;
     }
 
 }
