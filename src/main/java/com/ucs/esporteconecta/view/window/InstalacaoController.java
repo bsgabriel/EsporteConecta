@@ -49,16 +49,10 @@ public class InstalacaoController implements Initializable {
     private TextField inputEstado;
 
     @FXML
-    private TextField inputHoraFimManha;
+    private TextField inputHoraFim;
 
     @FXML
-    private TextField inputHoraFimTarde;
-
-    @FXML
-    private TextField inputHoraInicioManha;
-
-    @FXML
-    private TextField inputHoraInicioTarde;
+    private TextField inputHoraInicio;
 
     @FXML
     private TextField inputNome;
@@ -143,14 +137,9 @@ public class InstalacaoController implements Initializable {
         instalacao.setModalidade(modalidade);
 
         //Salvar horario de funcionamento
-        Funcionamento func1 = cadastraHorarioFuncionamento(this.inputHoraInicioManha, this.inputHoraFimManha, this.selectDiaInicio);
-        Funcionamento func2 = cadastraHorarioFuncionamento(this.inputHoraInicioTarde, this.inputHoraFimTarde, this.selectDiaFim);
-
-         func1.setInstalacao(instalacao);
-         func2.setInstalacao(instalacao);
-
-         instalacao.getFuncionamentos().add(func1);
-         instalacao.getFuncionamentos().add(func2);
+        Funcionamento func1 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaInicio);
+        func1.setInstalacao(instalacao);
+        instalacao.getFuncionamentos().add(func1);
 
         //Salva o id da instituicao
 
@@ -164,23 +153,13 @@ public class InstalacaoController implements Initializable {
     }
 
     @FXML
-    void onKeyPressedHrFimManha(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraFimManha);
+    void onKeyPressedHrFim(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraFim);
     }
 
     @FXML
-    void onKeyPressedHrFimTarde(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraFimTarde);
-    }
-
-    @FXML
-    void onKeyPressedHrInicioManha(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraInicioManha);
-    }
-
-    @FXML
-    void onKeyPressedHrInicioTarde(KeyEvent event) {
-        MascarasFX.mascaraHora(this.inputHoraInicioTarde);
+    void onKeyPressedHrInicio(KeyEvent event) {
+        MascarasFX.mascaraHora(this.inputHoraInicio);
     }
 
     private Funcionamento cadastraHorarioFuncionamento(TextField inptHoraInicio, TextField inptHoraFim, ChoiceBox<DiaSemana> diaSemana) {
@@ -233,23 +212,13 @@ public class InstalacaoController implements Initializable {
             return false;
         }
 
-        if (inputHoraInicioManha.getText() == null || inputHoraInicioManha.getText().isBlank()) {
+        if (inputHoraInicio.getText() == null || inputHoraInicio.getText().isBlank()) {
             showWarning("Horario de abertura da manhã não informada");
             return false;
         }
 
-        if (inputHoraFimManha.getText() == null || inputHoraFimManha.getText().isBlank()) {
+        if (inputHoraFim.getText() == null || inputHoraFim.getText().isBlank()) {
             showWarning("Horario de fechamento da manhã não informada");
-            return false;
-        }
-
-        if (inputHoraInicioTarde.getText() == null || inputHoraInicioTarde.getText().isBlank()) {
-            showWarning("Horario de abertura da tarde não informada");
-            return false;
-        }
-
-        if (inputHoraFimTarde.getText() == null || inputHoraFimTarde.getText().isBlank()) {
-            showWarning("Horario de fechamento da tarde não informada");
             return false;
         }
 
