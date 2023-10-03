@@ -4,17 +4,23 @@ import com.ucs.esporteconecta.database.dao.UsuarioDAO;
 import com.ucs.esporteconecta.model.Esportista;
 import com.ucs.esporteconecta.model.Instituicao;
 import com.ucs.esporteconecta.model.Usuario;
+import com.ucs.esporteconecta.util.FXUtils;
 import com.ucs.esporteconecta.util.GlobalData;
+import com.ucs.esporteconecta.util.interfaces.IController;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.Notifications;
 
+import java.io.IOException;
+
 import static com.ucs.esporteconecta.util.DialogHelper.*;
 import static javafx.beans.binding.Bindings.createStringBinding;
 
-public class MenuInicialController {
+public class MenuInicialController implements IController {
 
     @FXML
     private Label lblTitulo;
@@ -49,12 +55,18 @@ public class MenuInicialController {
     @FXML
     private PasswordField inputSenha;
 
+    private Parent root;
     private UsuarioDAO usuarioDAO;
 
     private UsuarioDAO getUsuarioDAO() {
         if (usuarioDAO == null)
             usuarioDAO = new UsuarioDAO();
         return usuarioDAO;
+    }
+
+    @Override
+    public void setRoot(Parent root) {
+        this.root = root;
     }
 
     @FXML
@@ -130,8 +142,17 @@ public class MenuInicialController {
         }
 
         GlobalData.setUsuarioLogado(u);
-        notificarUsuarioLogado();
-        // TODO: abrir próxima tela
+//        notificarUsuarioLogado();
+        if (GlobalData.getUsuarioLogado() instanceof Esportista) {
+            Scene scene = null;
+            try {
+                scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class);
+                GlobalData.getPrimaryStage().setTitle("Início");
+                GlobalData.getPrimaryStage().setScene(scene);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     private void cadastrarEsportista() {
