@@ -60,8 +60,10 @@
 }
 
 #rating > .container .button {
-    -fx-pref-width: 50px;
-    -fx-pref-height: 50px;
+    -fx-min-width: 25px;
+    -fx-min-height: 25px;
+    -fx-max-width: 25px;
+    -fx-max-height: 25px;
     -fx-background-size: cover;
     -fx-padding: 0;
     -fx-focus-traversable: false;

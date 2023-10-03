@@ -25,8 +25,13 @@
                 <TextField fx:id="fldBairro" promptText="Bairro" styleClass="input" />
                 <TextField fx:id="fldValor" promptText="Valor até" styleClass="input" />
                 <Label id="lblAvaliacoes" text="Avaliações" />
-                <Rating fx:id="rating" />
-                <Button fx:id="btnBuscar" onAction="#buscarInstalacoes">
+                <Rating fx:id="rating" partialRating="false" />
+                <Button fx:id="btnBuscar" onAction="#buscarInstalacoes" styleClass="btn-filtro" >
+                    <graphic>
+                        <FontIcon />
+                    </graphic>
+                </Button>
+                <Button id="btnLimparFiltro" onAction="#limparFiltro" styleClass="btn-filtro" >
                     <graphic>
                         <FontIcon />
                     </graphic>
