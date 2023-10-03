@@ -5,14 +5,18 @@ import com.ucs.esporteconecta.model.*;
 import com.ucs.esporteconecta.model.enums.DiaSemana;
 import javafx.application.Platform;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static java.math.RoundingMode.HALF_DOWN;
 
 public class TesteCadastro {
     public static void main(String[] args) {
         System.out.println("Iniciando teste...\n");
         Esportista esportista = gerarEsportista();
         Instituicao instituicao = gerarInstituicao();
+        gerarAvaliacoes(instituicao, esportista);
 
         UsuarioDAO dao = new UsuarioDAO();
 
@@ -37,7 +41,6 @@ public class TesteCadastro {
         System.out.println("Finalizou o teste\n");
 
     }
-
 
     private static DiaSemana randomDiaSemana() {
         switch (ThreadLocalRandom.current().nextInt(1, 7)) {
@@ -88,7 +91,7 @@ public class TesteCadastro {
         instalacao.setInstituicao(instituicao);
         instalacao.setDescricao("Instalação " + (1 + idx) + " da instituição " + instituicao.getNomeFantasia());
         instalacao.setNome("Piscina olimpica");
-        instalacao.setValor(450.00);
+        instalacao.setValor(BigDecimal.valueOf(ThreadLocalRandom.current().nextDouble(100.0, 1001.0)).setScale(1, HALF_DOWN).doubleValue());
         instalacao.setCidade("Caxias do Sul");
         instalacao.setBairro("Exposicao");
         instalacao.setEstado("RS");
@@ -122,5 +125,20 @@ public class TesteCadastro {
 
         return instalacao;
     }
+
+    private static void gerarAvaliacoes(final Instituicao instituicao, final Esportista esportista) {
+        instituicao.getInstalacoes().forEach(instalacao -> {
+            for (int i = 0; i < 10; i++) {
+                int n = ThreadLocalRandom.current().nextInt(1, 6);
+                Avaliacao aval = new Avaliacao();
+                aval.setInstalacao(instalacao);
+                aval.setEsportista(esportista);
+                aval.setNota(n);
+                aval.setComentario("Comentário teste " + i + 1);
+                instalacao.getAvaliacoes().add(aval);
+            }
+        });
+    }
+
 
 }
