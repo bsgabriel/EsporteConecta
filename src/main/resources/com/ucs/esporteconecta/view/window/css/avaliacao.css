@@ -1,0 +1,125 @@
+#root {
+    -fx-min-width: 1920px;
+    -fx-min-height: 1080px;
+    -fx-background-color: #EFEFEF;
+    -fx-alignment: center;
+
+}
+
+.white-background {
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 4, 0, 0, 4);
+    -fx-alignment: center;
+}
+
+#contentWrapper {
+    -fx-max-width: 1315px;
+    -fx-max-height: 915px;
+    -fx-padding: 40px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+
+}
+
+/* Informação */
+#informacoes {
+    -fx-spacing: 5px;
+    -fx-padding: 40px;
+}
+
+#imgWrapper {
+    -fx-background-color: #D9D9D9;
+    -fx-background-radius: 10px;
+    -fx-min-width: 480px;
+    -fx-min-height: 270px;
+}
+
+#lblEndereco {
+    -fx-text-fill: #000000;
+    -fx-font-size: 24px;
+     -fx-font-weight: bold;
+}
+
+#pnlModalidades {
+    -fx-spacing: 20px;
+}
+
+#pnlModalidades Label {
+    -fx-pref-width: 160px;
+    -fx-alignment: center;
+    -fx-text-fill: #FF7E37;
+    -fx-border-color: #FF7E37;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+#lblDescricao {
+    -fx-text-alignment: justify;
+    -fx-wrap-text: true;
+    -fx-text-fill: #000000;
+    -fx-alignment: top-left;
+    -fx-max-height: infinity;
+    -fx-font-size: 20px;
+}
+
+
+/* Avaliação */
+#pnlAvaliar {
+     -fx-spacing: 5px;
+     -fx-padding: 40px;
+}
+
+.rating > .container {
+    -fx-alignment: center-left;
+}
+
+.rating > .container .button {
+    -fx-min-width: 48px;
+    -fx-min-height: 48px;
+    -fx-max-width: 48px;
+    -fx-max-height: 48px;
+    -fx-background-size: cover;
+    -fx-padding: 0;
+    -fx-focus-traversable: false;
+}
+
+.input {
+    -fx-font-size: 24px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-color: #CCCCCC;
+    -fx-pref-height: 30px;
+}
+
+#avaliar {
+     -fx-spacing: 20px;
+     -fx-alignment: center;
+}
+
+#btnAvaliar {
+    -fx-background-color: #FF7E37;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(0, 0, 0, 0.5);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-max-width: infinity;
+    -fx-pref-height: 85px;
+    -fx-font-size: 24px;
+}
+
+#btnAvaliar:hover {
+    -fx-cursor: hand;
+    -fx-opacity: 0.7;
+}
+
+#btnAvaliar:pressed {
+    -fx-opacity: 0.5;
+}

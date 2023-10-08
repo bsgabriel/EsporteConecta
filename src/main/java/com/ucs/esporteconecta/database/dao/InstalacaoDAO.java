@@ -46,6 +46,11 @@ public class InstalacaoDAO {
         return getDataBaseManager().getEntityManager().createQuery("From Instalacao", Instalacao.class).getResultList();
     }
 
+    public Instalacao findOne(int id) {
+        return getDataBaseManager().getEntityManager().createQuery("From Instalacao Where id = :id", Instalacao.class)
+                .setParameter("id", id).getSingleResult();
+    }
+
     public List<Instalacao> find(FiltroBuscaInstalacao filtro) {
         Query qry = getDataBaseManager().getEntityManager().createQuery(createFilteredQuery(filtro), Instalacao.class);
         if (filtro.getBairro() != null && !filtro.getBairro().isBlank())

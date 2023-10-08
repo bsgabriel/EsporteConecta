@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import org.controlsfx.control.Rating?>
+<StackPane fx:id="root"
+             stylesheets="@../css/avaliacao.css"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ucs.esporteconecta.view.window.AvaliacaoController">
+
+    <VBox id="contentWrapper" styleClass="white-background" >
+        <HBox id="informacao" maxHeight="-Infinity" maxWidth="-Infinity">
+            <StackPane id="imgWrapper">
+                <ImageView fx:id="imgViewInstalacao" fitHeight="270.0" fitWidth="480.0" pickOnBounds="true"/>
+            </StackPane>
+            <VBox id="informacoes">
+                <Label fx:id="lblEndereco" text="Rua João Correia, 560 Caxias do Sul"/>
+                <HBox fx:id="pnlModalidades"/>
+                <Label fx:id="lblDescricao" text="Qudra de esportes ......" wrapText="true" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </HBox>
+        <VBox id="pnlAvaliar" maxHeight="-Infinity" maxWidth="-Infinity">
+            <VBox id="avaliar" maxHeight="-Infinity" maxWidth="-Infinity">
+                <Rating fx:id="rating" styleClass="rating" />
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextArea fx:id="fldComentario" promptText="Comentário" styleClass="input" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button id="btnAvaliar" text="AVALIAR" onAction="#avaliarInstalacao" />
+        </VBox>
+
+    </VBox>
+</StackPane>
