@@ -42,9 +42,15 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-max-width: infinity;
-    -fx-font-size: 24px;
+    -fx-font-size: 32px;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-border-color: rgba(0, 0, 0, 0.5);
     -fx-background-insets: 1px;
+}
+
+.btn-secundario {
+    -fx-font-size: 32px;
+    -fx-text-fill: #000000;
+    -fx-border-radius: 10px;
 }

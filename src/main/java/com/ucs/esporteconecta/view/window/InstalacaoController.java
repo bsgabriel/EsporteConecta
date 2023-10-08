@@ -4,10 +4,15 @@ import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
 import com.ucs.esporteconecta.database.dao.ModalidadeDAO;
 import com.ucs.esporteconecta.model.*;
 import com.ucs.esporteconecta.model.enums.DiaSemana;
+import com.ucs.esporteconecta.util.FXUtils;
+import com.ucs.esporteconecta.util.GlobalData;
 import com.ucs.esporteconecta.util.MascarasFX;
+import com.ucs.esporteconecta.util.interfaces.IController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -16,6 +21,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -25,13 +31,16 @@ import java.util.ResourceBundle;
 import static com.ucs.esporteconecta.util.DialogHelper.*;
 import static com.ucs.esporteconecta.util.DialogHelper.showWarning;
 
-public class InstalacaoController implements Initializable {
+public class InstalacaoController implements IController, Initializable {
 
     @FXML
     private GridPane PnlEndereco;
 
     @FXML
     private Button btnSalvar;
+
+    @FXML
+    private Button btnVoltar;
 
     @FXML
     private TextField inputBairro;
@@ -87,6 +96,8 @@ public class InstalacaoController implements Initializable {
     @FXML
     private Label title;
 
+    private Parent parent;
+
     private InstalacaoDAO instalacaoDAO;
     private ModalidadeDAO modalidadeDAO;
 
@@ -100,6 +111,11 @@ public class InstalacaoController implements Initializable {
         if (modalidadeDAO == null)
             modalidadeDAO = new ModalidadeDAO();
         return modalidadeDAO;
+    }
+
+    @Override
+    public void setRoot(Parent root) {
+        this.parent = root;
     }
 
     @Override
@@ -149,6 +165,20 @@ public class InstalacaoController implements Initializable {
         }
 
         showInformation("Instalacao cadastrada com sucesso!");
+
+    }
+
+    @FXML
+    void onClickVoltar(ActionEvent event) {
+
+        try {
+            Scene scene = null;
+            scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class);
+            GlobalData.getPrimaryStage().setTitle("Minhas instalações");
+            GlobalData.getPrimaryStage().setScene(scene);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
