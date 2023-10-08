@@ -1,0 +1,14 @@
+.subtitulo {
+    -fx-font-size: 25px;
+    -fx-font-weight: Bold;
+    -fx-font-color: #222222;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
+}
+
+.btn-cabecalho {
+    -fx-pref-width: 430px;
+    -fx-pref-height: 115px;
+    -fx-font-size: 32px;
+    -fx-text-fill: #000000;
+}

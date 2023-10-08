@@ -143,15 +143,22 @@ public class MenuInicialController implements IController {
 
         GlobalData.setUsuarioLogado(u);
 //        notificarUsuarioLogado();
-        if (GlobalData.getUsuarioLogado() instanceof Esportista) {
+
+        try {
+
             Scene scene = null;
-            try {
+
+            if (GlobalData.getUsuarioLogado() instanceof Esportista) {
                 scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class);
-                GlobalData.getPrimaryStage().setTitle("Início");
-                GlobalData.getPrimaryStage().setScene(scene);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+            } else {
+                scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class);
             }
+
+            GlobalData.getPrimaryStage().setTitle("Início");
+            GlobalData.getPrimaryStage().setScene(scene);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
