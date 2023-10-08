@@ -33,7 +33,7 @@ public class Instalacao {
     @Column
     private String estado;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Modalidade modalidade;
 
     @OneToMany(mappedBy = "instalacao", cascade = CascadeType.ALL, orphanRemoval = true)
