@@ -158,6 +158,10 @@ public class InstalacaoController implements IController, Initializable {
         instalacao.getFuncionamentos().add(func1);
 
         //Salva o id da instituicao
+        if (GlobalData.getUsuarioLogado() instanceof Instituicao) {
+            Usuario user = GlobalData.getUsuarioLogado();
+            instalacao.setInstituicao((Instituicao) user);
+        }
 
         if (!getInstalacaoDAO().persist(instalacao)) {
             showErrorDialog("Não foi possível realizar cadastro");
