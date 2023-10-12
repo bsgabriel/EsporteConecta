@@ -1,8 +1,11 @@
 package com.ucs.esporteconecta.view.component;
 
 import com.ucs.esporteconecta.view.ViewResourceHelper;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -36,6 +39,9 @@ public class ItemReservaInstalacao extends HBox {
 
     @FXML
     private Label lblValorDiaria;
+
+    @FXML
+    private Button btnAcao;
 
     public ItemReservaInstalacao() {
         FXMLLoader loader = new FXMLLoader(ViewResourceHelper.getComponentFxml(ItemReservaInstalacao.class));
@@ -83,5 +89,12 @@ public class ItemReservaInstalacao extends HBox {
         this.lblNota.setText(String.format("%.1f",avaliacao).replace(".", ","));
     }
 
+    public void setLblBtnAcao(String text) {
+        this.btnAcao.setText(text);
+    }
+
+    public void onClickBtnAcao(EventHandler<ActionEvent> event) {
+        btnAcao.setOnAction(event);
+    }
 
 }

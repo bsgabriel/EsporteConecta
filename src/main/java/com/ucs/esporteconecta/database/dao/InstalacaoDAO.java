@@ -2,6 +2,7 @@ package com.ucs.esporteconecta.database.dao;
 
 import com.ucs.esporteconecta.database.DataBaseManager;
 import com.ucs.esporteconecta.model.Instalacao;
+import com.ucs.esporteconecta.model.Instituicao;
 import com.ucs.esporteconecta.util.filtros.FiltroBuscaInstalacao;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
@@ -49,6 +50,13 @@ public class InstalacaoDAO {
     public Instalacao findOne(int id) {
         return getDataBaseManager().getEntityManager().createQuery("From Instalacao Where id = :id", Instalacao.class)
                 .setParameter("id", id).getSingleResult();
+    }
+
+    public List<Instalacao> findByInstituicao(Instituicao instituicao) {
+
+        Query qry = getDataBaseManager().getEntityManager().createQuery("From Instalacao Where instituicao.id =: id", Instalacao.class);
+        qry.setParameter("id", instituicao.getId());
+        return qry.getResultList();
     }
 
     public List<Instalacao> find(FiltroBuscaInstalacao filtro) {

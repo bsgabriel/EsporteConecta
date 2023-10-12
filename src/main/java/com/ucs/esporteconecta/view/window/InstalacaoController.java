@@ -13,13 +13,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,15 +28,6 @@ import static com.ucs.esporteconecta.util.DialogHelper.*;
 import static com.ucs.esporteconecta.util.DialogHelper.showWarning;
 
 public class InstalacaoController implements IController, Initializable {
-
-    @FXML
-    private GridPane PnlEndereco;
-
-    @FXML
-    private Button btnSalvar;
-
-    @FXML
-    private Button btnVoltar;
 
     @FXML
     private TextField inputBairro;
@@ -70,21 +57,6 @@ public class InstalacaoController implements IController, Initializable {
     private TextField inputValor;
 
     @FXML
-    private Label lblData;
-
-    @FXML
-    private Label lblSubtitulo;
-
-    @FXML
-    private GridPane pnlGridHorario;
-
-    @FXML
-    private AnchorPane pnlMain;
-
-    @FXML
-    private GridPane pnlMainGrid;
-
-    @FXML
     private ChoiceBox<DiaSemana> selectDiaFim;
 
     @FXML
@@ -93,8 +65,8 @@ public class InstalacaoController implements IController, Initializable {
     @FXML
     private ChoiceBox<Modalidade> selectModalidade;
 
-    @FXML
-    private Label title;
+    private boolean editar = false;
+    private int id; //Id da instalacao caso esteja em edicao
 
     private Parent parent;
 
@@ -130,6 +102,30 @@ public class InstalacaoController implements IController, Initializable {
 
     }
 
+    public void setId(int id) {
+        this.id = id;
+        editar = true;
+        carregarDados();
+    }
+
+    public void carregarDados() {
+        Instalacao inst = getInstalacaoDAO().findOne(this.id);
+
+        this.inputNome.setText(inst.getNome());
+        this.inputDesc.setText(inst.getDescricao());
+        this.inputEstado.setText(inst.getEstado());
+        this.inputCidade.setText(inst.getCidade());
+        this.inputBairro.setText(inst.getBairro());
+        this.inputValor.setText(inst.getValor().toString());
+        this.selectModalidade.setValue(inst.getModalidade());
+        this.inputCapacidadeMax.setText(inst.getCapacidadeMaxima().toString());
+        this.selectDiaInicio.setValue(inst.getFuncionamentos().get(0).getDiaSemana());
+        this.selectDiaFim.setValue(inst.getFuncionamentos().get(1).getDiaSemana());
+        this.inputHoraInicio.setText(inst.getFuncionamentos().get(0).getHorario().getInicio().toString());
+        this.inputHoraFim.setText(inst.getFuncionamentos().get(0).getHorario().getFim().toString());
+
+    }
+
     @FXML
     void onClickBtnSalvar(ActionEvent event) {
 
@@ -157,15 +153,27 @@ public class InstalacaoController implements IController, Initializable {
         func1.setInstalacao(instalacao);
         instalacao.getFuncionamentos().add(func1);
 
+        Funcionamento func2 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaFim);
+        func2.setInstalacao(instalacao);
+        instalacao.getFuncionamentos().add(func2);
+
         //Salva o id da instituicao
         if (GlobalData.getUsuarioLogado() instanceof Instituicao) {
             Usuario user = GlobalData.getUsuarioLogado();
             instalacao.setInstituicao((Instituicao) user);
         }
 
-        if (!getInstalacaoDAO().persist(instalacao)) {
-            showErrorDialog("Não foi possível realizar cadastro");
-            return;
+        if (this.editar) {
+
+          showInformation("Terminar de implementar a edicao!");
+
+        } else {
+
+            if (!getInstalacaoDAO().persist(instalacao)) {
+                showErrorDialog("Não foi possível realizar cadastro");
+                return;
+            }
+
         }
 
         showInformation("Instalacao cadastrada com sucesso!");
@@ -207,6 +215,7 @@ public class InstalacaoController implements IController, Initializable {
         Funcionamento func = new Funcionamento();
         func.setDiaSemana(diaSemana.getValue());
         func.setHorario(horario);
+
         return func;
     }
 

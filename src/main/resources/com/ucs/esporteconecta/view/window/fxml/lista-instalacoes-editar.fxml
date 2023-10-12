@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/lista-instalacoes-editar.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucs.esporteconecta.view.window.ListaInstalacoesEditarController">
    <children>
       <VBox layoutX="1426.0" layoutY="67.0" prefHeight="221.0" prefWidth="431.0" spacing="20.0">
@@ -33,9 +32,9 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="SUAS INSTALAÇÕES" />
             <ScrollPane fx:id="spnInstalacoes" prefHeight="664.0" prefWidth="1754.0" styleClass="subtitulo">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <VBox fx:id="instalacoesWrapper" prefHeight="155.0" prefWidth="1796.0" />
+               </content>
             </ScrollPane>
          </children>
          <padding>
