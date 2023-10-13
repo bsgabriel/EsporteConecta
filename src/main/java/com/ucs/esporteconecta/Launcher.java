@@ -13,7 +13,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         GlobalData.setPrimaryStage(stage);
-        Scene scene = FXUtils.loadWindow(MenuInicialController.class);
+        Scene scene = FXUtils.loadWindow(MenuInicialController.class).getScene();
         stage.setTitle("Início");
         stage.setMinWidth(1400);
         stage.setMinHeight(935);

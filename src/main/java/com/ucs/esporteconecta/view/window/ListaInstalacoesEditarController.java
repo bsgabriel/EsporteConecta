@@ -71,7 +71,7 @@ public class ListaInstalacoesEditarController implements IController, Initializa
 
         try {
             Scene scene = null;
-            scene = FXUtils.loadWindow(InstalacaoController.class);
+            scene = FXUtils.loadWindow(InstalacaoController.class).getScene();
             GlobalData.getPrimaryStage().setTitle("Cadastrar instalação");
             GlobalData.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -85,7 +85,7 @@ public class ListaInstalacoesEditarController implements IController, Initializa
 
         try {
             Scene scene = null;
-            scene = FXUtils.loadWindow(MenuInicialController.class);
+            scene = FXUtils.loadWindow(MenuInicialController.class).getScene();
             GlobalData.getPrimaryStage().setTitle("Início");
             GlobalData.getPrimaryStage().setScene(scene);
         } catch (IOException e) {

@@ -185,7 +185,7 @@ public class InstalacaoController implements IController, Initializable {
 
         try {
             Scene scene = null;
-            scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class);
+            scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class).getScene();
             GlobalData.getPrimaryStage().setTitle("Minhas instalações");
             GlobalData.getPrimaryStage().setScene(scene);
         } catch (IOException e) {

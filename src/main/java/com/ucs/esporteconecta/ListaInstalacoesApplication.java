@@ -12,7 +12,7 @@ public class ListaInstalacoesApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Scene scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class);
+        Scene scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class).getScene();
         stage.setTitle("Instalações Esportivas");
         stage.setMinWidth(1400);
         stage.setMinHeight(935);

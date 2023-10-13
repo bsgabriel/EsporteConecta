@@ -1,5 +1,6 @@
 package com.ucs.esporteconecta.util;
 
+import com.ucs.esporteconecta.util.beans.JFXLoaderBean;
 import com.ucs.esporteconecta.util.interfaces.IController;
 import com.ucs.esporteconecta.view.ViewResourceHelper;
 import javafx.application.Platform;
@@ -17,13 +18,20 @@ import java.io.IOException;
  */
 public class FXUtils {
 
-    public static <T extends IController> Scene loadWindow(Class<T> controller) throws IOException {
+    public static <T extends IController> JFXLoaderBean<T> loadWindow(Class<T> controller) throws IOException {
+        return loadWindow(controller, Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight());
+    }
+
+    public static <T extends IController> JFXLoaderBean<T>  loadWindow(Class<T> controller, double width, double height) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(ViewResourceHelper.getWindowFxml(controller));
-        double width = Screen.getPrimary().getVisualBounds().getWidth();
-        double height = Screen.getPrimary().getVisualBounds().getHeight();
         Parent parent = fxmlLoader.load();
         ((IController) fxmlLoader.getController()).setRoot(parent);
-        return new Scene(parent, width, height);
+
+        JFXLoaderBean<T> bean = new JFXLoaderBean<>();
+        bean.setScene(new Scene(parent, width, height));
+        bean.setControlller(fxmlLoader.getController());
+
+        return bean;
     }
 
     /**
