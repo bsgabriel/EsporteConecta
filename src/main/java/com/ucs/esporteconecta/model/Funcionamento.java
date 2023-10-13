@@ -51,4 +51,9 @@ public class Funcionamento {
     public void setHorario(Horario horario) {
         this.horario = horario;
     }
+
+    @Override
+    public String toString() {
+        return diaSemana.getValor() + ": " + horario.toString();
+    }
 }
