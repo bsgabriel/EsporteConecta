@@ -6,6 +6,8 @@ import com.ucs.esporteconecta.model.Instalacao;
 import com.ucs.esporteconecta.model.Modalidade;
 import com.ucs.esporteconecta.util.CustomTask;
 import com.ucs.esporteconecta.util.DialogHelper;
+import com.ucs.esporteconecta.util.FXUtils;
+import com.ucs.esporteconecta.util.beans.JFXLoaderBean;
 import com.ucs.esporteconecta.util.filtros.FiltroBuscaInstalacao;
 import com.ucs.esporteconecta.util.interfaces.IController;
 import com.ucs.esporteconecta.view.component.ItemReservaInstalacao;
@@ -13,11 +15,17 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.control.Rating;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.ucs.esporteconecta.util.GlobalData.getPrimaryStage;
 import static java.math.RoundingMode.HALF_DOWN;
 
 public class ListaInstalacoesReservarController implements IController {
@@ -130,12 +138,14 @@ public class ListaInstalacoesReservarController implements IController {
         content.setDescricao(instalacao.getDescricao());
         content.setValorDiaria(instalacao.getValor());
         content.adicionarModalidade(instalacao.getModalidade().getNome());
+        content.setLblBtnAcao("Reservar");
+        content.onClickBtnAcao((actionEvent -> abrirTelaReserva(instalacao)));
+
 
         double nota = calcularAvaliacao(instalacao.getAvaliacoes());
         content.setAvaliacao(nota);
         instalacoesWrapper.getChildren().add(content);
     }
-
 
     /**
      * Calcula a média de estrelas de uma instalação
@@ -186,4 +196,23 @@ public class ListaInstalacoesReservarController implements IController {
         return false;
     }
 
+    private void abrirTelaReserva(Instalacao instalacao) {
+        try {
+            JFXLoaderBean<ReservarInstalacaoController> bean = FXUtils.loadWindow(ReservarInstalacaoController.class, getPrimaryStage().getWidth(), getPrimaryStage().getHeight());
+            bean.getControlller().setInstalacao(instalacao);
+            bean.getScene().setFill(Color.rgb(0, 0, 0, 0.5));
+
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle("Reservar");
+            stage.setScene(bean.getScene());
+            stage.setX(getPrimaryStage().getX());
+            stage.setY(getPrimaryStage().getY());
+            stage.initOwner(getPrimaryStage());
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

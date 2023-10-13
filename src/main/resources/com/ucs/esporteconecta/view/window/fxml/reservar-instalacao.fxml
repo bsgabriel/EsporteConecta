@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane id="root" stylesheets="@../css/reservar-instalacao.css"
+           xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.ucs.esporteconecta.view.window.ReservarInstalacaoController">
+    <VBox id="pnlReservarInstalacao">
+        <Label fx:id="lblNomeInstalacao"/>
+        <DatePicker fx:id="dtPicker" styleClass="input"/>
+        <ComboBox fx:id="cbFuncionamento" promptText="Horário" styleClass="input"/>
+        <Region VBox.vgrow="ALWAYS"/>
+        <HBox id="rodape">
+            <Button id="btnCancelar" onAction="#actCancelar" text="Cancelar" styleClass="btn-rodape"/>
+            <Button id="btnReservar" onAction="#actReservar" text="Reservar" styleClass="btn-rodape"/>
+        </HBox>
+    </VBox>
+
+</StackPane>
