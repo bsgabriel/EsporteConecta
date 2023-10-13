@@ -23,7 +23,7 @@
         <HBox id="pnlReserva">
             <Label fx:id="lblValorDiaria"/>
             <Region HBox.hgrow="ALWAYS"/>
-            <Button id="btnReservar" fx:id="btnAcao" text="RESERVAR"/>
+            <Button fx:id="btnAcao" text="RESERVAR"/>
         </HBox>
     </VBox>
 </fx:root>
