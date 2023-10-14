@@ -2,7 +2,7 @@ package com.ucs.esporteconecta.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "reservas")
@@ -13,7 +13,7 @@ public class Reserva {
     private Long id;
 
     @Column
-    private Date data;
+    private LocalDate data;
 
     @OneToOne
     private Horario horario;
@@ -32,11 +32,11 @@ public class Reserva {
         this.id = id;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
