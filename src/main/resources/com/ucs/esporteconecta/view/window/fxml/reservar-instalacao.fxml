@@ -8,7 +8,8 @@
     <VBox id="pnlReservarInstalacao">
         <Label fx:id="lblNomeInstalacao"/>
         <DatePicker fx:id="dtPicker" styleClass="input"/>
-        <ComboBox fx:id="cbFuncionamento" promptText="Horário" styleClass="input"/>
+        <Label fx:id="lblMensagem" text="Escolha uma data" wrapText="true"/>
+        <ComboBox fx:id="cbFuncionamento" promptText="Horário" styleClass="input" disable="true"/>
         <Region VBox.vgrow="ALWAYS"/>
         <HBox id="rodape">
             <Button id="btnCancelar" onAction="#actCancelar" text="Cancelar" styleClass="btn-rodape"/>
