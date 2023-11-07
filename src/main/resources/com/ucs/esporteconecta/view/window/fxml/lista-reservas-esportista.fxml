@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="com.ucs.esporteconecta.view.window.ListaReservasEsportista"
+           fx:controller="com.ucs.esporteconecta.view.window.ListaReservasEsportistaController"
            stylesheets="@../css/lista-reservas-esportista.css"
            id="root">
 

@@ -150,7 +150,7 @@ public class MenuInicialController implements IController {
 
             if (GlobalData.getUsuarioLogado() instanceof Esportista esportista) {
                 if (!esportista.getReservas().isEmpty())
-                    scene = FXUtils.loadWindow(ListaReservasEsportista.class).getScene();
+                    scene = FXUtils.loadWindow(ListaReservasEsportistaController.class).getScene();
                 else
                     scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class).getScene();
             } else {

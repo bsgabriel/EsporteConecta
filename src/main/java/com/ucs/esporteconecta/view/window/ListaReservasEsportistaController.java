@@ -16,11 +16,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class ListaReservasEsportista implements IController {
+public class ListaReservasEsportistaController implements IController {
     private Parent root;
 
     @FXML
