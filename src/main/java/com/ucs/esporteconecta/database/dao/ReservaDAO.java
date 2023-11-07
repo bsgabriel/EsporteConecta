@@ -3,6 +3,7 @@ package com.ucs.esporteconecta.database.dao;
 import com.ucs.esporteconecta.database.DataBaseManager;
 import com.ucs.esporteconecta.model.Horario;
 import com.ucs.esporteconecta.model.Instalacao;
+import com.ucs.esporteconecta.model.Instituicao;
 import com.ucs.esporteconecta.model.Reserva;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
@@ -10,6 +11,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ReservaDAO {
     private DataBaseManager dataBaseManager;
@@ -66,4 +68,26 @@ public class ReservaDAO {
 
         return reserva;
     }
+
+    public List<Reserva> buscarPorInstituicao(Instituicao instituicao) {
+        String hql = "SELECT r FROM Reserva r " +
+                "JOIN r.instalacao i " +
+                "WHERE i.instituicao.id = :instituicao AND r.data >= current timestamp " +
+                "ORDER BY r.data DESC " +
+                "LIMIT 5";
+
+        Query query = getDataBaseManager().getEntityManager().createQuery(hql, Reserva.class);
+        query.setParameter("instituicao", instituicao.getId());
+
+        List<Reserva> reservas = null;
+        try {
+            reservas = (List<Reserva>) query.getResultList();
+        } catch (NoResultException ex) {
+            System.err.println("nenhum resultado encontrado para a query");
+        }
+
+        return reservas;
+    }
+
+
 }

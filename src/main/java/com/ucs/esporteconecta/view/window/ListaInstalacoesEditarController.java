@@ -1,12 +1,15 @@
 package com.ucs.esporteconecta.view.window;
 
 import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
+import com.ucs.esporteconecta.database.dao.ReservaDAO;
 import com.ucs.esporteconecta.model.*;
 import com.ucs.esporteconecta.util.FXUtils;
 import com.ucs.esporteconecta.util.GlobalData;
 import com.ucs.esporteconecta.util.interfaces.IController;
 import com.ucs.esporteconecta.view.ViewResourceHelper;
 import com.ucs.esporteconecta.view.component.ItemReservaInstalacao;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -21,6 +25,10 @@ import javafx.stage.Screen;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,23 +43,33 @@ public class ListaInstalacoesEditarController implements IController, Initializa
     private Button btnSair;
 
     @FXML
+    private VBox instalacoesWrapper;
+
+    @FXML
+    private VBox proxReservasWrapper;
+
+    @FXML
     private ScrollPane spnInstalacoes;
 
     @FXML
     private ScrollPane spnProxReservas;
 
-    @FXML
-    private VBox instalacoesWrapper;
-
-
     private Parent parent;
 
     private InstalacaoDAO instalacaoDAO;
+
+    private ReservaDAO reservaDAO;
 
     private InstalacaoDAO getInstalacaoDAO() {
         if (instalacaoDAO == null)
             instalacaoDAO = new InstalacaoDAO();
         return instalacaoDAO;
+    }
+
+    private ReservaDAO getReservaDAO() {
+        if (reservaDAO == null)
+            reservaDAO = new ReservaDAO();
+        return reservaDAO;
     }
 
     @Override
@@ -62,7 +80,13 @@ public class ListaInstalacoesEditarController implements IController, Initializa
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
-        buscarInstalacoes();
+        if (GlobalData.getUsuarioLogado() instanceof Instituicao) {
+
+            buscarProxReservas();
+
+            buscarInstalacoes();
+
+        }
 
     }
 
@@ -97,13 +121,10 @@ public class ListaInstalacoesEditarController implements IController, Initializa
     private void buscarInstalacoes() {
         this.instalacoesWrapper.getChildren().clear();
 
-        if (GlobalData.getUsuarioLogado() instanceof Instituicao) {
+        Usuario user = GlobalData.getUsuarioLogado();
 
-            Usuario user = GlobalData.getUsuarioLogado();
-
-            List<Instalacao> instalacoes = getInstalacaoDAO().findByInstituicao((Instituicao) user);
-            instalacoes.forEach(instalacao -> inserirInstalacao(instalacao));
-        }
+        List<Instalacao> instalacoes = getInstalacaoDAO().findByInstituicao((Instituicao) user);
+        instalacoes.forEach(instalacao -> inserirInstalacao(instalacao));
 
     }
 
@@ -159,6 +180,28 @@ public class ListaInstalacoesEditarController implements IController, Initializa
         }
 
         return BigDecimal.valueOf(Integer.valueOf(nota).doubleValue() / avaliacoes.size()).setScale(1, HALF_DOWN).doubleValue();
+    }
+
+    private void buscarProxReservas() {
+
+        Usuario user = GlobalData.getUsuarioLogado();
+
+        List<Reserva> reservas = getReservaDAO().buscarPorInstituicao((Instituicao) user);
+
+        List<String> lista = new ArrayList<String>();
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        NumberFormat numberFormatter = new DecimalFormat("###,###.##");
+
+        for (Reserva reserva: reservas) {
+                lista.add(reserva.getData().format(dateFormatter) + " - " + reserva.getInstalacao().getNome() + " (" + reserva.getEsportista().getNome() + ") - R$" +
+                      numberFormatter.format(reserva.getInstalacao().getValor()));
+        }
+
+        ObservableList<String> items = FXCollections.observableList(lista);
+        ListView<String> listaReservas = new ListView<String>(items);
+
+        this.proxReservasWrapper.getChildren().add(listaReservas);
     }
 
 }
