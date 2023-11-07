@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
@@ -7,42 +9,53 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../css/lista-instalacoes-editar.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucs.esporteconecta.view.window.ListaInstalacoesEditarController">
+<AnchorPane id="contentWrapper" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ucs.esporteconecta.view.window.ListaInstalacoesEditarController">
    <children>
       <VBox layoutX="1426.0" layoutY="67.0" prefHeight="221.0" prefWidth="431.0" spacing="20.0">
          <children>
-            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#onClickSair" prefHeight="100.0" prefWidth="488.0" styleClass="btn-cabecalho" text="SAIR" />
-            <Button fx:id="btnCadastroInst" mnemonicParsing="false" onAction="#onClickCadastroInst" prefHeight="100.0" prefWidth="488.0" styleClass="btn-cabecalho" text="CADASTRAR INSTALAÇÃO" />
+            <Button fx:id="btnSair" mnemonicParsing="false" onAction="#onClickSair" prefHeight="100.0" prefWidth="488.0" text="SAIR">
+               <styleClass>
+                  <String fx:value="btn-topo" />
+                  <String fx:value="white-background" />
+               </styleClass></Button>
+            <Button fx:id="btnCadastroInst" mnemonicParsing="false" onAction="#onClickCadastroInst" prefHeight="100.0" prefWidth="488.0" text="CADASTRAR INSTALAÇÃO">
+               <styleClass>
+                  <String fx:value="btn-topo" />
+                  <String fx:value="white-background" />
+               </styleClass></Button>
          </children>
       </VBox>
-      <VBox layoutX="65.0" layoutY="67.0" prefHeight="221.0" prefWidth="1312.0" spacing="20.0">
+      <VBox layoutX="65.0" layoutY="67.0" prefHeight="221.0" prefWidth="1312.0" spacing="20.0" styleClass="white-background">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="PRÓXIMAS RESERVAS" textAlignment="CENTER" wrappingWidth="1231.36328125" />
-            <ScrollPane fx:id="spnProxReservas" prefHeight="155.0" prefWidth="1310.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-              </content>
-            </ScrollPane>
+            <ScrollPane fx:id="spnProxReservas" prefWidth="1240.0" styleClass="lista-prox-reserv">
+               <content>
+                  <VBox fx:id="proxReservasWrapper" prefWidth="1240.0" styleClass="lista-prox-reserv" />
+               </content></ScrollPane>
          </children>
          <padding>
-            <Insets top="10.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </VBox>
-      <VBox layoutX="65.0" layoutY="340.0" prefHeight="691.0" prefWidth="1794.0">
+      <VBox layoutX="63.0" layoutY="340.0" prefHeight="691.0" prefWidth="1794.0" styleClass="white-background">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="subtitulo" text="SUAS INSTALAÇÕES" />
-            <ScrollPane fx:id="spnInstalacoes" prefHeight="664.0" prefWidth="1754.0" styleClass="subtitulo">
+            <ScrollPane fx:id="spnInstalacoes" fitToWidth="true" hbarPolicy="NEVER">
                <content>
-                  <VBox fx:id="instalacoesWrapper" prefHeight="155.0" prefWidth="1796.0" />
+                  <VBox fx:id="instalacoesWrapper" />
                </content>
             </ScrollPane>
          </children>
          <padding>
-            <Insets bottom="20.0" top="20.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
       </VBox>
    </children>
+   <stylesheets>
+      <URL value="@../css/lista-instalacoes-editar.css" />
+      <URL value="@../css/lista-instalacoes-reservar.css" />
+   </stylesheets>
 </AnchorPane>

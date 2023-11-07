@@ -6,9 +6,14 @@
     -fx-text-alignment: center;
 }
 
-.btn-cabecalho {
+.btn-topo {
     -fx-pref-width: 430px;
     -fx-pref-height: 115px;
     -fx-font-size: 32px;
     -fx-text-fill: #000000;
+}
+
+.lista-prox-reserv {
+    -fx-font-size: 24px;
+    -fx-font-weight: medium;
 }
