@@ -1,12 +1,14 @@
 package com.ucs.esporteconecta.database.dao;
 
 import com.ucs.esporteconecta.database.DataBaseManager;
+import com.ucs.esporteconecta.model.Funcionamento;
 import com.ucs.esporteconecta.model.Instalacao;
 import com.ucs.esporteconecta.model.Instituicao;
 import com.ucs.esporteconecta.util.filtros.FiltroBuscaInstalacao;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.MutationQuery;
 
 import java.util.List;
 
@@ -33,6 +35,70 @@ public class InstalacaoDAO {
             if (tx != null)
                 tx.rollback();
             System.out.println("Transação falhou : ");
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null)
+                session.close();
+        }
+
+        return true;
+    }
+
+    public void updateFuncionamento(Session session, Funcionamento funcionamento) {
+
+        MutationQuery qHorario = session.createMutationQuery(
+                "UPDATE Horario " +
+                        "SET inicio = :inicio, fim = :fim " +
+                        "WHERE id = :id");
+
+        qHorario.setParameter("inicio", funcionamento.getHorario().getInicio());
+        qHorario.setParameter("fim", funcionamento.getHorario().getFim());
+        qHorario.setParameter("id", funcionamento.getHorario().getId());
+        qHorario.executeUpdate();
+
+        MutationQuery q = session.createMutationQuery(
+                "UPDATE Funcionamento " +
+                        "SET diaSemana = :diaSemana " +
+                        "WHERE id = :id");
+
+        q.setParameter("diaSemana", funcionamento.getDiaSemana());
+        q.setParameter("id", funcionamento.getId());
+        q.executeUpdate();
+    }
+
+    public boolean update(Instalacao instalacao) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getDataBaseManager().getFactory().openSession();
+            tx = session.beginTransaction();
+
+            for (Funcionamento func : instalacao.getFuncionamentos()) {
+                updateFuncionamento(session, func);
+            }
+
+            MutationQuery q = session.createMutationQuery(
+                    "UPDATE Instalacao " +
+                        "SET nome = :nome, descricao = :descricao, capacidadeMaxima = :capmax, valor = :valor, bairro = :bairro, " +
+                        "cidade = :cidade, estado = :estado, modalidade = :modalidade " +
+                        "WHERE id = :id");
+
+            q.setParameter("nome", instalacao.getNome());
+            q.setParameter("descricao", instalacao.getDescricao());
+            q.setParameter("capmax", instalacao.getCapacidadeMaxima());
+            q.setParameter("valor", instalacao.getValor());
+            q.setParameter("bairro", instalacao.getBairro());
+            q.setParameter("cidade", instalacao.getCidade());
+            q.setParameter("estado", instalacao.getEstado());
+            q.setParameter("modalidade", instalacao.getModalidade());
+            q.setParameter("id", instalacao.getId());
+            q.executeUpdate();
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null)
+                tx.rollback();
             e.printStackTrace();
             return false;
         } finally {

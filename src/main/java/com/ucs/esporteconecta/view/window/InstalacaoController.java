@@ -65,6 +65,8 @@ public class InstalacaoController implements IController, Initializable {
     @FXML
     private ChoiceBox<Modalidade> selectModalidade;
 
+    private Instalacao inst;
+
     private boolean editar = false;
     private int id; //Id da instalacao caso esteja em edicao
 
@@ -109,7 +111,7 @@ public class InstalacaoController implements IController, Initializable {
     }
 
     public void carregarDados() {
-        Instalacao inst = getInstalacaoDAO().findOne(this.id);
+        this.inst = getInstalacaoDAO().findOne(this.id);
 
         this.inputNome.setText(inst.getNome());
         this.inputDesc.setText(inst.getDescricao());
@@ -133,50 +135,59 @@ public class InstalacaoController implements IController, Initializable {
             return;
         }
 
-        Instalacao instalacao = new Instalacao();
-        instalacao.setNome(inputNome.getText());
-        instalacao.setDescricao(inputDesc.getText());
-        instalacao.setBairro(inputBairro.getText());
-        instalacao.setCidade(inputCidade.getText());
-        instalacao.setEstado(inputEstado.getText());
+        this.inst.setNome(inputNome.getText());
+        this.inst.setDescricao(inputDesc.getText());
+        this.inst.setBairro(inputBairro.getText());
+        this.inst.setCidade(inputCidade.getText());
+        this.inst.setEstado(inputEstado.getText());
 
-        instalacao.setValor(Double.parseDouble(inputValor.getText().replaceAll(",", ".")));
-        instalacao.setCapacidadeMaxima(Integer.parseInt(inputCapacidadeMax.getText()));
+        this.inst.setValor(Double.parseDouble(inputValor.getText().replaceAll(",", ".")));
+        this.inst.setCapacidadeMaxima(Integer.parseInt(inputCapacidadeMax.getText()));
 
         //Salvar modalidade
         String[] idModalidade = this.selectModalidade.getValue().toString().split("-");
         Modalidade modalidade = modalidadeDAO.buscarPorId(Integer.parseInt(idModalidade[0]));
-        instalacao.setModalidade(modalidade);
+        this.inst.setModalidade(modalidade);
 
-        //Salvar horario de funcionamento
-        Funcionamento func1 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaInicio);
-        func1.setInstalacao(instalacao);
-        instalacao.getFuncionamentos().add(func1);
+        if (editar) {
+            alteraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaInicio, this.inst.getFuncionamentos().get(0).getHorario(), this.inst.getFuncionamentos().get(0));
+            alteraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaFim, this.inst.getFuncionamentos().get(1).getHorario(), this.inst.getFuncionamentos().get(1));
+        } else {
 
-        Funcionamento func2 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaFim);
-        func2.setInstalacao(instalacao);
-        instalacao.getFuncionamentos().add(func2);
+            //Salvar horario de funcionamento
+            Funcionamento func1 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaInicio);
+            func1.setInstalacao(this.inst);
+            this.inst.getFuncionamentos().add(func1);
+
+            Funcionamento func2 = cadastraHorarioFuncionamento(this.inputHoraInicio, this.inputHoraFim, this.selectDiaFim);
+            func2.setInstalacao(this.inst);
+            this.inst.getFuncionamentos().add(func2);
+
+        }
 
         //Salva o id da instituicao
         if (GlobalData.getUsuarioLogado() instanceof Instituicao) {
             Usuario user = GlobalData.getUsuarioLogado();
-            instalacao.setInstituicao((Instituicao) user);
+            this.inst.setInstituicao((Instituicao) user);
         }
 
         if (this.editar) {
 
-          showInformation("Terminar de implementar a edicao!");
+            if (!getInstalacaoDAO().update(this.inst)) {
+                showErrorDialog("Não foi possível atualizar o cadastro");
+                return;
+            }
 
         } else {
 
-            if (!getInstalacaoDAO().persist(instalacao)) {
+            if (!getInstalacaoDAO().persist(this.inst)) {
                 showErrorDialog("Não foi possível realizar cadastro");
                 return;
             }
 
         }
 
-        showInformation("Instalacao cadastrada com sucesso!");
+        showInformation("Instalacao salva com sucesso!");
 
     }
 
@@ -217,6 +228,17 @@ public class InstalacaoController implements IController, Initializable {
         func.setHorario(horario);
 
         return func;
+    }
+
+    private void alteraHorarioFuncionamento(TextField inptHoraInicio, TextField inptHoraFim, ChoiceBox<DiaSemana> diaSemana, Horario horario, Funcionamento func) {
+        String[] horaInicio = inptHoraInicio.getText().split(":");
+        String[] horaFim = inptHoraFim.getText().split(":");
+
+        horario.setInicio(LocalTime.of(Integer.parseInt(horaInicio[0]), Integer.parseInt(horaInicio[1])));
+        horario.setFim(LocalTime.of(Integer.parseInt(horaFim[0]), Integer.parseInt(horaFim[1])));
+
+        func.setDiaSemana(diaSemana.getValue());
+        func.setHorario(horario);
     }
 
     private boolean validarCampos() {
