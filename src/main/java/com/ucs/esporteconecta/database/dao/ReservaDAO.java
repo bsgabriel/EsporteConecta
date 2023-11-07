@@ -1,16 +1,14 @@
 package com.ucs.esporteconecta.database.dao;
 
 import com.ucs.esporteconecta.database.DataBaseManager;
-import com.ucs.esporteconecta.model.Horario;
-import com.ucs.esporteconecta.model.Instalacao;
-import com.ucs.esporteconecta.model.Instituicao;
-import com.ucs.esporteconecta.model.Reserva;
+import com.ucs.esporteconecta.model.*;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReservaDAO {
@@ -24,13 +22,12 @@ public class ReservaDAO {
     }
 
     public boolean persist(Reserva reserva) {
-        // TODO: verificar se reserva possui instalação e esportista
         Session session = null;
         Transaction tx = null;
         try {
             session = getDataBaseManager().getFactory().openSession();
             tx = session.beginTransaction();
-            session.persist(reserva);
+            session.merge(reserva);
             tx.commit();
         } catch (Exception e) {
             if (tx != null)
@@ -69,6 +66,41 @@ public class ReservaDAO {
         return reserva;
     }
 
+    public List<Reserva> buscar(Esportista esportista) {
+        String hql = "SELECT r FROM Reserva r " + "JOIN r.esportista e " + "WHERE e = :esportista";
+
+        Query query = getDataBaseManager().getEntityManager().createQuery(hql, Reserva.class);
+        query.setParameter("esportista", esportista);
+
+        List<Reserva> reservas = new ArrayList<>();
+        try {
+            reservas = query.getResultList();
+        } catch (NoResultException ex) {
+            System.err.println("nenhum resultado encontrado para a query");
+        }
+
+        return reservas;
+    }
+
+    public void removerReserva(Reserva reserva) {
+        Session session = null;
+        Transaction tx = null;
+        try {
+            session = getDataBaseManager().getFactory().openSession();
+            tx = session.beginTransaction();
+            session.remove(reserva);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null)
+                tx.rollback();
+            System.out.println("Transação falhou : ");
+            e.printStackTrace();
+        } finally {
+            if (session != null)
+                session.close();
+        }
+    }
+
     public List<Reserva> buscarPorInstituicao(Instituicao instituicao) {
         String hql = "SELECT r FROM Reserva r " +
                 "JOIN r.instalacao i " +
@@ -88,6 +120,5 @@ public class ReservaDAO {
 
         return reservas;
     }
-
 
 }

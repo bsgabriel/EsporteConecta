@@ -132,9 +132,10 @@ public class MenuInicialController implements IController {
     }
 
     private void login() {
-        if (!validarCamposLogin())
-            return;
+//        if (!validarCamposLogin())
+//            return;
 
+//        Usuario u = getUsuarioDAO().buscar("gabi3", "1234");
         Usuario u = getUsuarioDAO().buscar(inputLogin.getText(), inputSenha.getText());
         if (u == null) {
             showErrorDialog("Usuário ou senha inválidos");
@@ -148,10 +149,13 @@ public class MenuInicialController implements IController {
 
             Scene scene = null;
 
-            if (GlobalData.getUsuarioLogado() instanceof Esportista) {
-                scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class);
+            if (GlobalData.getUsuarioLogado() instanceof Esportista esportista) {
+                if (!esportista.getReservas().isEmpty())
+                    scene = FXUtils.loadWindow(ListaReservasEsportista.class).getScene();
+                else
+                    scene = FXUtils.loadWindow(ListaInstalacoesReservarController.class).getScene();
             } else {
-                scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class);
+                scene = FXUtils.loadWindow(ListaInstalacoesEditarController.class).getScene();
             }
 
             GlobalData.getPrimaryStage().setTitle("Início");

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.Rating?>
+<fx:root type="HBox" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         stylesheets="@../css/item-reserva-esportista.css" id="cell">
+
+    <ImageView fx:id="imgInstalacao" fitWidth="190" fitHeight="165"/>
+    <VBox>
+        <Label fx:id="lblDataReserva"/>
+        <Label fx:id="lblHoraReserva"/>
+    </VBox>
+    <VBox id="boxDireita">
+        <Label fx:id="lblEndereco"/>
+        <HBox id="boxBotoes">
+            <Button text="Avaliar" onAction="#exibirAvaliacao" styleClass="btn" fx:id="btnAvaliar"/>
+            <Button text="Cancelar reserva" styleClass="btn" fx:id="btnCancelar" onAction="#cancelarReserva"/>
+        </HBox>
+        <VBox fx:id="boxAvaliacao" visible="false" managed="false">
+            <HBox id="boxAvaliacaoSuperior">
+                <Label text="Nota:"/>
+                <Rating fx:id="nota" partialRating="false" rating="0"/>
+            </HBox>
+            <HBox id="boxAvaliacaoInferior">
+                <TextArea fx:id="inputComentario"/>
+                <Button text="Salvar" styleClass="btn" onAction="#salvarAvaliacao"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</fx:root>

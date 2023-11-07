@@ -1,0 +1,93 @@
+.btn {
+    -fx-background-color: #FF7E37;
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-text-fill: white;
+    -fx-background-insets: 1px;
+    -fx-font-size: 24px;
+}
+
+.btn:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #ffbd99;
+}
+
+.btn:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-background-color: #ff9c66;
+}
+
+
+#cell {
+    -fx-spacing: 10px;
+}
+
+#imgInstalacao { }
+
+#lblDataReserva {
+    -fx-font-size: 30px;
+    -fx-text-fill: #000000;
+}
+
+#lblHoraReserva {
+    -fx-font-size: 13px;
+    -fx-text-fill: #000000;
+}
+
+#boxDireita {
+    -fx-spacing: 10px;
+}
+
+#lblEndereco {
+    -fx-font-size: 25px;
+}
+
+#boxBotoes {
+    -fx-spacing: 5px;
+}
+
+#boxBotoes Button {
+    -fx-min-width: 250px;
+    -fx-min-height: 50px;
+    -fx-max-width: 250px;
+    -fx-max-height: 50px;
+}
+
+#boxAvaliacao {
+    -fx-spacing: 10px;
+}
+
+#boxAvaliacaoSuperior {
+    -fx-spacing: 5px;
+    -fx-alignment: center-left;
+}
+
+#boxAvaliacaoSuperior Label {
+    -fx-text-fill: #000000;
+    -fx-opacity: 0.5;
+    -fx-font-size: 26px;
+}
+
+#nota {}
+
+#boxAvaliacaoInferior {
+    -fx-spacing: 5px;
+    -fx-alignment: bottom-left;
+}
+
+#inputComentario {
+    -fx-min-width: 515px;
+    -fx-min-height: 125px;
+    -fx-max-width: 515px;
+    -fx-max-height: 125px;
+}
+
+#boxAvaliacaoInferior Button {
+    -fx-min-width: 125px;
+    -fx-min-height: 55px;
+    -fx-max-width: 125px;
+    -fx-max-height: 55px;
+}

@@ -1,45 +1,62 @@
 package com.ucs.esporteconecta.testes;
 
+import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
+import com.ucs.esporteconecta.database.dao.ModalidadeDAO;
+import com.ucs.esporteconecta.database.dao.ReservaDAO;
 import com.ucs.esporteconecta.database.dao.UsuarioDAO;
 import com.ucs.esporteconecta.model.*;
 import com.ucs.esporteconecta.model.enums.DiaSemana;
 import javafx.application.Platform;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.math.RoundingMode.HALF_DOWN;
 
 public class TesteCadastro {
     public static void main(String[] args) {
-        System.out.println("Iniciando teste...\n");
-        Esportista esportista = gerarEsportista();
-        Instituicao instituicao = gerarInstituicao();
-        gerarAvaliacoes(instituicao, esportista);
+//        System.out.println("Iniciando teste...\n");
+//        Esportista esportista = gerarEsportista();
+//        Instituicao instituicao = gerarInstituicao();
+//        gerarAvaliacoes(instituicao, esportista);
+//
+//        UsuarioDAO dao = new UsuarioDAO();
+//
+//        System.out.println("Persistindo esportista...\n");
+//        try {
+//            dao.persist(esportista);
+//        } catch (Exception ex) {
+//            System.err.println("Erro ao persistir esportista, finalizando teste");
+//            ex.printStackTrace();
+//            Platform.exit();
+//        }
+//
+//        System.out.println("Persistindo instituição...\n");
+//        try {
+//            dao.persist(instituicao);
+//        } catch (Exception ex) {
+//            System.err.println("Erro ao persistir instituição, finalizando teste");
+//            ex.printStackTrace();
+//            Platform.exit();
+//        }
+//
+//        System.out.println("Finalizou o teste\n");
 
-        UsuarioDAO dao = new UsuarioDAO();
+        Instalacao instalacao = new InstalacaoDAO().findOne(2);
+//        Esportista esportista = (Esportista) new UsuarioDAO().buscar("gabi3", "1234");
+//        Reserva reserva = new Reserva();
+//        reserva.setEsportista(esportista);
+//        reserva.setInstalacao(instalacao);
+//        reserva.setHorario(instalacao.getFuncionamentos().get(0).getHorario());
+//        reserva.setData(LocalDate.now());
+//        new ReservaDAO().persist(reserva);
 
-        System.out.println("Persistindo esportista...\n");
-        try {
-            dao.persist(esportista);
-        } catch (Exception ex) {
-            System.err.println("Erro ao persistir esportista, finalizando teste");
-            ex.printStackTrace();
-            Platform.exit();
-        }
-
-        System.out.println("Persistindo instituição...\n");
-        try {
-            dao.persist(instituicao);
-        } catch (Exception ex) {
-            System.err.println("Erro ao persistir instituição, finalizando teste");
-            ex.printStackTrace();
-            Platform.exit();
-        }
-
-        System.out.println("Finalizou o teste\n");
-
+        Reserva reserva = new ReservaDAO().buscar(instalacao, instalacao.getFuncionamentos().get(1).getHorario(), LocalDate.now());
+        System.out.println(reserva);
     }
 
     private static DiaSemana randomDiaSemana() {
@@ -96,9 +113,7 @@ public class TesteCadastro {
         instalacao.setBairro("Exposicao");
         instalacao.setEstado("RS");
 
-        Modalidade modalidade = new Modalidade();
-        modalidade.setNome("tênis");
-        modalidade.setUrlImagem("");
+        Modalidade modalidade = new ModalidadeDAO().buscarPorId(1);
         instalacao.setModalidade(modalidade);
 
         DiaSemana diaSemana = randomDiaSemana();

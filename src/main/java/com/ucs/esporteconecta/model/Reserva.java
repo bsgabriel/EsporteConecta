@@ -15,7 +15,7 @@ public class Reserva {
     @Column
     private LocalDate data;
 
-    @OneToOne
+    @ManyToOne
     private Horario horario;
 
     @ManyToOne

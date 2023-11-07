@@ -30,7 +30,7 @@ public class FXUtils {
         JFXLoaderBean<T> bean = new JFXLoaderBean<>();
         bean.setScene(new Scene(parent, width, height));
         bean.setControlller(fxmlLoader.getController());
-
+        System.out.println("Tela a ser exibida: " + controller.getSimpleName());
         return bean;
     }
 

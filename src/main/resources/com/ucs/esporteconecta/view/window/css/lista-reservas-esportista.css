@@ -1,0 +1,64 @@
+#root {
+    -fx-background-color: #EFEFEF;
+}
+
+#contentWrapper {
+    -fx-min-width: 1315px;
+    -fx-min-height: 915px;
+    -fx-max-width: -fx-min-width;
+    -fx-max-height: -fx-min-height;
+    -fx-background-color: white;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-spacing: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 4, 0, 0, 4);
+    -fx-padding: 20px;
+}
+
+#leftContent {
+    -fx-spacing: 10px;
+}
+
+#lblTitulo {
+    -fx-font-size: 32px;
+    -fx-text-fill: #000000;
+}
+
+#spReservas,
+#spReservas .viewport {
+    -fx-background-color: transparent;
+}
+
+#reservasWrapper {
+    -fx-spacing: 10px;
+}
+
+#rightContent {
+    -fx-spacing: 10px;
+}
+
+#rightContent Button {
+    -fx-pref-width: 245px;
+    -fx-pref-height: 85px;
+    -fx-background-color: white;
+    -fx-text-fill: #000000;
+    -fx-font-size: 32px;
+    -fx-text-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.25), 0, 0, 3, 3);
+    -fx-border-color: #eeeeee;
+    -fx-border-width: 1px;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-padding: 0;
+}
+
+#rightContent Button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #efefef;
+}
+
+#rightContent Button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-background-color: #eeeeee;
+}

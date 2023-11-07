@@ -131,7 +131,6 @@ public class ListaInstalacoesReservarController implements IController {
         return filtro;
     }
 
-
     private void inserirInstalacao(Instalacao instalacao) {
         ItemReservaInstalacao content = new ItemReservaInstalacao();
         content.setNome(instalacao.getNome() + " - " + instalacao.getBairro() + ", " + instalacao.getCidade());

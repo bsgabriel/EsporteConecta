@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.ucs.esporteconecta.view.window.ListaReservasEsportista"
+           stylesheets="@../css/lista-reservas-esportista.css"
+           id="root">
+
+    <HBox id="contentWrapper">
+        <VBox id="leftContent" HBox.hgrow="ALWAYS">
+            <Label text="SUAS RESERVAS" id="lblTitulo"/>
+            <ScrollPane fx:id="spReservas" hbarPolicy="NEVER" fitToWidth="true" VBox.vgrow="ALWAYS">
+                <VBox fx:id="reservasWrapper"/>
+            </ScrollPane>
+        </VBox>
+        <VBox id="rightContent">
+            <Button text="SAIR" onAction="#sair"/>
+            <Button text="BUSCAR INSTALAÇÕES" wrapText="true" onAction="#abrirTelaReserva"/>
+        </VBox>
+    </HBox>
+</StackPane>
