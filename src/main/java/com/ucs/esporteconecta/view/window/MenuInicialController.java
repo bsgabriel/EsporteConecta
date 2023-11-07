@@ -132,10 +132,9 @@ public class MenuInicialController implements IController {
     }
 
     private void login() {
-//        if (!validarCamposLogin())
-//            return;
+        if (!validarCamposLogin())
+            return;
 
-//        Usuario u = getUsuarioDAO().buscar("gabi3", "1234");
         Usuario u = getUsuarioDAO().buscar(inputLogin.getText(), inputSenha.getText());
         if (u == null) {
             showErrorDialog("Usuário ou senha inválidos");
