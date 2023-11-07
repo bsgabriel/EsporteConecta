@@ -2,11 +2,13 @@ package com.ucs.esporteconecta.view.window;
 
 import com.ucs.esporteconecta.database.dao.InstalacaoDAO;
 import com.ucs.esporteconecta.model.Avaliacao;
+import com.ucs.esporteconecta.model.Esportista;
 import com.ucs.esporteconecta.model.Instalacao;
 import com.ucs.esporteconecta.model.Modalidade;
 import com.ucs.esporteconecta.util.CustomTask;
 import com.ucs.esporteconecta.util.DialogHelper;
 import com.ucs.esporteconecta.util.FXUtils;
+import com.ucs.esporteconecta.util.GlobalData;
 import com.ucs.esporteconecta.util.beans.JFXLoaderBean;
 import com.ucs.esporteconecta.util.filtros.FiltroBuscaInstalacao;
 import com.ucs.esporteconecta.util.interfaces.IController;
@@ -214,4 +216,22 @@ public class ListaInstalacoesReservarController implements IController {
             throw new RuntimeException(e);
         }
     }
+
+    @FXML
+    private void abrirTelaListaReservas() {
+        if (((Esportista) GlobalData.getUsuarioLogado()).getReservas().isEmpty()) {
+            DialogHelper.showInformation("Usuário não possui reservas.");
+            return;
+        }
+
+        try {
+            JFXLoaderBean<ListaReservasEsportistaController> bean = FXUtils.loadWindow(ListaReservasEsportistaController.class);
+            GlobalData.getPrimaryStage().setTitle("Reservas");
+            GlobalData.getPrimaryStage().setScene(bean.getScene());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
