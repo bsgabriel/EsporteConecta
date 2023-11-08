@@ -38,7 +38,7 @@
                 </Button>
             </FlowPane>
             <VBox id="menu" maxHeight="-Infinity" maxWidth="-Infinity">
-                <Button id="btnConta" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="btn-cabecalho, white-background" text="MINHA CONTA" />
+                <Button id="btnConta" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="btn-cabecalho, white-background" text="MINHA CONTA" disable="true"/>
                 <Button id="btnReservas" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="btn-cabecalho, white-background" text="MINHAS RESERVAS" onAction="#abrirTelaListaReservas"/>
             </VBox>
         </HBox>
