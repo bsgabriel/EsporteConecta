@@ -89,6 +89,11 @@ public class ListaInstalacoesReservarController implements IController {
     }
 
     @FXML
+    private void initialize() {
+        buscarInstalacoes();
+    }
+
+    @FXML
     private void buscarInstalacoes() {
         final FiltroBuscaInstalacao filtro = gerarFiltro();
         this.instalacoesWrapper.getChildren().clear();
