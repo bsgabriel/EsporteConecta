@@ -105,7 +105,7 @@ public class ReservarInstalacaoController implements IController {
                 reserva.setData(dtPicker.getValue());
                 reserva.setHorario(cbFuncionamento.getSelectionModel().getSelectedItem().getHorario());
                 getReservaDAO().persist(reserva);
-
+                ((Esportista)GlobalData.getUsuarioLogado()).getReservas().add(reserva);
                 return null;
             }
 
