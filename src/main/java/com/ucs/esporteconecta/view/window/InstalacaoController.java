@@ -95,6 +95,8 @@ public class InstalacaoController implements IController, Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 
+        this.inst = new Instalacao();
+
         List<Modalidade> modalidades = getModalidadeDAO().findAll();
         selectModalidade.getItems().addAll(modalidades);
 
